@@ -30,6 +30,8 @@ void mrc()
 void wetdeer()
 {
     // code goes here
+    cout <<"bruh";
+
 }
 void jarjar()
 {
