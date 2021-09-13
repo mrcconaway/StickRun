@@ -24,6 +24,7 @@ int main(){
 void mrc()
 {
     // code goes here
+    cout << "hello MRC" << endl;
 }
 
 void wetdeer()
