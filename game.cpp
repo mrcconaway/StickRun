@@ -10,6 +10,7 @@ game::game()
 // initize game stuff
 bool game::OnUserCreate()
 {
+    player p1;
     return true;
 }
 
