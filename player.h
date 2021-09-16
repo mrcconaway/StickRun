@@ -4,6 +4,8 @@ class player : public olc::PixelGameEngine
 {
 
 public:
+    player(){} // constructor 
+
     //accessor functions
     float getCoordinateY();
     float getCoordinateX();

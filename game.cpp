@@ -1,4 +1,5 @@
 #include "game.h"
+#include "player.h"
 #include "olcPixelGameEngine.h"
 
 game::game()
@@ -6,11 +7,13 @@ game::game()
     sAppName = "Stick Run";
 }
 
+// initize game stuff
 bool game::OnUserCreate()
 {
     return true;
 }
 
+// update game stuff
 bool game::OnUserUpdate(float fElapsedTime) 
 {
     gameDraw();
