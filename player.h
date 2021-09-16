@@ -1,6 +1,6 @@
 #include "olcPixelGameEngine.h"
 
-class player : public olc::PixelGameEngine
+class player 
 {
 
 public:
@@ -17,7 +17,7 @@ public:
     void setAcceloration(float x);
 private:
     float px = 25; 
-    float py = ScreenHeight() * 0.75 + 1; // try to get the y position on the line
+    float py; // try to get the y position on the line
     float vy;
     float ay;
 };
