@@ -27,10 +27,10 @@ void game::gameDraw()
 
 
 
-                if( (y == int(ScreenHeight() / 1.3 ) ) ){ // draw a black line for a road
+                if( (y == int(ScreenHeight() * 0.75 ) ) ){ // draw a black line for a road
                     PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
                 }
-                else if(y > int(ScreenHeight() / 1.3 ) ) // draw some grass below the black line
+                else if(y > int(ScreenHeight() * 0.75 ) ) // draw some grass below the black line
                 {
                     PixelGameEngine::Draw(x, y, olc::Pixel(50,  255,  50));
                 }
