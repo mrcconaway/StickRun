@@ -2,15 +2,11 @@
 #include "player.h"
 #include "olcPixelGameEngine.h"
 
-game::game()
-{
-    sAppName = "Stick Run";
-}
 
 // initize game stuff
 bool game::OnUserCreate()
 {
-    player p1;
+    p1.setpy( ScreenHeight() * 0.75);
     return true;
 }
 
@@ -42,8 +38,12 @@ void game::gameDraw()
                     PixelGameEngine::Draw(x, y, olc::Pixel(255,  255,  255));
                 }
 
-
-
+                // Draw Player
+                if( (p1.getpx() < x + 10 ) && (p1.getpx() > x - 10 ) ){
+                    if( (p1.getpy() < y + 10 ) && (p1.getpy() > y - 10 )){
+                        PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
+                    }
+                }
 
 
 

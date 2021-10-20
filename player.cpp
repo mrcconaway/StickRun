@@ -2,23 +2,30 @@
 
 
 
-float player::getCoordinateY(){
+float player::getpy(){
     return py;
 }
-float player::getCoordinateX(){
+float player::getpx(){
     return px;
 }
-float player::playerVelocity(){
+float player::getvy(){
     return vy;
 }
-float player::playerAcceloration(){
+float player::getay(){
     return ay;
 }
-void player::setPlayerY(float x){
+
+
+void player::setpy(float x){
     py = x;
 }
-void player::setVelocity(float x){
+
+
+
+void player::setvy(float x){
     vy = x;
-}void player::setAcceloration(float x){
+}
+
+void player::setay(float x){
     ay = x;
 }

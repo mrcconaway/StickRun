@@ -1,27 +1,27 @@
-#include "olcPixelGameEngine.h"
+#pragma once
+
 
 class player 
 {
 
 public:
-    player(){} // constructor 
+    player(float x = 0, float y = 0){
+        py = y;
+    } // constructor 
 
     //accessor functions
-    float getCoordinateY();
-    float getCoordinateX();
-    float playerVelocity();
-    float playerAcceloration();
+    float getpy();
+    float getpx();
+    float getvy();
+    float getay();
     //mutator functions
-    void setPlayerY(float x);
-    void setVelocity(float x);
-    void setAcceloration(float x);
+    void setpy(float x);
+    void setvy(float x);
+    void setay(float x);
+
 private:
-    // Note:
-    //  For our x and y positions, we might wanna use olc::vi2d position; which stores the x,y coordinate as a postion vector {x,y}
-    //  but we need to research how to properly use this type "olc::vic2d"
-    //  but again, maybe we just wanna use seperate x and y postion vars ... i think we can make it work. 
-    float px = 25; 
-    float py; // try to get the y position on the line
-    float vy;
-    float ay;
+    float px = 50; 
+    float py = 0; // try to get the y position on the line
+    float vy = 0;
+    float ay = 0;
 };

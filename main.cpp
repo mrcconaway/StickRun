@@ -3,8 +3,14 @@
 
 int main()
 {
+    int32_t screenWidth = 256;
+    int32_t screenHeight = 240;
+
+
+    // make player 
     game test;
-    test.Construct(256, 240, 4, 4);
+
+    test.Construct(screenWidth, screenHeight, 4, 4);
     test.Start();
 
     return 0;
