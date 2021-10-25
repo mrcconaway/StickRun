@@ -7,6 +7,7 @@ class player
 public:
     player(float x = 0, float y = 0){
         py = y;
+        floor = y;
     } // constructor 
 
     //accessor functions
@@ -19,9 +20,15 @@ public:
     void setvy(float x);
     void setay(float x);
 
+    //mutators
+    void updatepy();
+    void updatevy();
+
 private:
     float px = 50; 
     float py = 0; // try to get the y position on the line
     float vy = 0;
-    float ay = 0;
+    float ay = 0.1;
+    // where is the ground?
+    float floor;
 };

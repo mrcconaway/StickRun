@@ -13,6 +13,7 @@ bool game::OnUserCreate()
 // update game stuff
 bool game::OnUserUpdate(float fElapsedTime) 
 {
+	onKeyPress();
     gameDraw();
 
     return true;
@@ -49,5 +50,14 @@ void game::gameDraw()
 
             } // end for y loop
         } // end for x loop
+
+}
+
+
+
+// figure out inputs and then update player class vy
+void game::onKeyPress(){
+
+
 
 }

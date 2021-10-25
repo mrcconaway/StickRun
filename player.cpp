@@ -29,3 +29,16 @@ void player::setvy(float x){
 void player::setay(float x){
     ay = x;
 }
+
+void player::updatepy()
+{
+    if(py >= floor){
+        py = py + vy; 
+    }
+
+}
+
+void player::updatevy()
+{
+    vy = vy - ay;
+}

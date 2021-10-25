@@ -13,6 +13,8 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override;
 	void gameDraw();
 
+	void onKeyPress();
+
 	public: 
 	player p1;
 };
