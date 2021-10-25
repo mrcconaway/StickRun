@@ -1,7 +1,11 @@
 CFLAGS = -luser32 -lgdi32 -lopengl32 -lgdiplus -lShlwapi -ldwmapi -lstdc++fs -static -std=c++17
 
-a.exe: main.o olcPixelGameEngine.o game.o player.o
+LFLAGS = -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
+
+a.exe: build
 	g++ -o StickRun.exe main.o olcPixelGameEngine.o player.o game.o $(CFLAGS)
+a.out: build
+	g++ -o StickRun.out main.o olcPixelGameEngine.o player.o game.o $(LFLAGS)
 
 main.o: main.cpp olcPixelGameEngine.cpp olcPixelGameEngine.h game.cpp game.h
 	g++ -c main.cpp
@@ -15,5 +19,8 @@ game.o: game.h game.cpp player.h player.cpp olcPixelGameEngine.h
 player.o: player.h player.cpp
 	g++ -c player.cpp
 
+build: main.o olcPixelGameEngine.o game.o player.o
+
 clean:
-	del *.o
+	-del *.o
+	-rm *.o
