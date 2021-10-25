@@ -7,7 +7,7 @@ class player
 public:
     player(float x = 0, float y = 0){
         py = y;
-        floor = y;
+        floor = py;
     } // constructor 
 
     //accessor functions
@@ -17,6 +17,7 @@ public:
     float getay();
     //mutator functions
     void setpy(float x);
+    void setfloor(float x);
     void setvy(float x);
     void setay(float x);
 

@@ -1,5 +1,5 @@
 #include "player.h"
-
+#include <iostream>
 
 
 float player::getpy(){
@@ -20,6 +20,10 @@ void player::setpy(float x){
     py = x;
 }
 
+void player::setfloor(float x)
+{
+    floor = x;
+}
 
 
 void player::setvy(float x){
@@ -32,13 +36,17 @@ void player::setay(float x){
 
 void player::updatepy()
 {
-    if(py >= floor){
+    if(py > floor){
         py = py + vy; 
+        updatevy();
+    }
+    else{ // safety net
+        py = floor;
     }
 
 }
 
 void player::updatevy()
 {
-    vy = vy - ay;
+        // vy = vy - ay;
 }

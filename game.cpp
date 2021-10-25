@@ -1,19 +1,24 @@
 #include "game.h"
 #include "player.h"
 #include "olcPixelGameEngine.h"
-
+#include <iostream>
 
 // initize game stuff
 bool game::OnUserCreate()
 {
-    p1.setpy( ScreenHeight() * 0.75);
+    float y_pos = ScreenHeight() * 0.75;
+    p1.setpy( y_pos);
+    p1.setfloor(y_pos);
     return true;
 }
 
 // update game stuff
 bool game::OnUserUpdate(float fElapsedTime) 
 {
-	onKeyPress();
+    if(GetKey(olc::W).bHeld){
+    	onKeyPress();
+    }
+    p1.updatepy();
     gameDraw();
 
     return true;
@@ -57,7 +62,5 @@ void game::gameDraw()
 
 // figure out inputs and then update player class vy
 void game::onKeyPress(){
-
-
-
+    p1.setvy(20);
 }
