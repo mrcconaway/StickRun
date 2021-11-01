@@ -15,6 +15,7 @@ public:
     float getpx();
     float getvy();
     float getay();
+    float getfloor();
     //mutator functions
     void setpy(float x);
     void setfloor(float x);
@@ -29,7 +30,7 @@ private:
     float px = 50; 
     float py = 0; // try to get the y position on the line
     float vy = 0;
-    float ay = 0.1;
+    float ay = 20;
     // where is the ground?
     float floor;
 };

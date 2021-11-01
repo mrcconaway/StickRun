@@ -5,6 +5,9 @@
 float player::getpy(){
     return py;
 }
+float player::getfloor(){
+    return floor;
+}
 float player::getpx(){
     return px;
 }
@@ -36,17 +39,19 @@ void player::setay(float x){
 
 void player::updatepy()
 {
-    if(py > floor){
-        py = py + vy; 
+
+    if( (py <= floor) ){
+        py = py + vy;
         updatevy();
     }
     else{ // safety net
         py = floor;
+        vy = 0;
     }
 
 }
 
 void player::updatevy()
 {
-        // vy = vy - ay;
+    vy = vy + 0.1;
 }

@@ -10,7 +10,7 @@ int main()
     // make player 
     game test;
 
-    test.Construct(screenWidth, screenHeight, 4, 4);
+    test.Construct(screenWidth, screenHeight, 4, 4, false, true);
     test.Start();
 
     return 0;

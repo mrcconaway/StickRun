@@ -15,9 +15,10 @@ bool game::OnUserCreate()
 // update game stuff
 bool game::OnUserUpdate(float fElapsedTime) 
 {
-    if(GetKey(olc::W).bHeld){
+    if(GetKey(olc::W).bPressed){
     	onKeyPress();
     }
+
     p1.updatepy();
     gameDraw();
 
@@ -62,5 +63,7 @@ void game::gameDraw()
 
 // figure out inputs and then update player class vy
 void game::onKeyPress(){
-    p1.setvy(20);
+    std::cout << "W is Pressed:" << std::endl;
+    if(p1.getpy() == p1.getfloor())
+        p1.setvy(-4.25);
 }
