@@ -1,23 +1,36 @@
-#include "olcPixelGameEngine.h"
+#pragma once
 
-class player
+
+class player 
 {
 
 public:
-    player(){} // constructor 
+    player(float x = 0, float y = 0){
+        py = y;
+        floor = py;
+    } // constructor 
 
     //accessor functions
-    float getCoordinateY();
-    float getCoordinateX();
-    float playerVelocity();
-    float playerAcceloration();
+    float getpy();
+    float getpx();
+    float getvy();
+    float getay();
+    float getfloor();
     //mutator functions
-    void setPlayerY(float x);
-    void setVelocity(float x);
-    void setAcceloration(float x);
+    void setpy(float x);
+    void setfloor(float x);
+    void setvy(float x);
+    void setay(float x);
+
+    //mutators
+    void updatepy();
+    void updatevy();
+
 private:
-    float px = 25; 
-    float py; // try to get the y position on the line
-    float vy;
-    float ay;
+    float px = 50; 
+    float py = 0; // try to get the y position on the line
+    float vy = 0;
+    float ay = 20;
+    // where is the ground?
+    float floor;
 };
