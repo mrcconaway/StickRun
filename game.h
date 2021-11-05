@@ -2,6 +2,7 @@
 
 #include "olcPixelGameEngine.h"
 #include "player.h"
+#include "enemyBox.h"
 class game : public olc::PixelGameEngine
 {
 public:
@@ -17,4 +18,10 @@ public:
 
 	public: 
 	player p1;
+
+
+
+
+	public:
+	enemyBox eBox;
 };

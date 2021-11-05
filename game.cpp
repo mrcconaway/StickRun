@@ -7,8 +7,16 @@
 bool game::OnUserCreate()
 {
     float y_pos = ScreenHeight() * 0.75;
-    p1.setpy( y_pos);
-    p1.setfloor(y_pos);
+    float x_pos = ScreenWidth() * 0.75;
+    p1.setpy( y_pos );
+    p1.setfloor( y_pos );
+
+
+    eBox.setModelSize(10);
+    eBox.setVelX(0);
+    eBox.setPosY(y_pos);
+    eBox.setPosX(x_pos);
+
     return true;
 }
 
@@ -52,6 +60,12 @@ void game::gameDraw()
                     }
                 }
 
+                // Draw enemy
+                if( (eBox.getPosX() < x + eBox.getModelSize() ) && (eBox.getPosX() > x - eBox.getModelSize() ) ){
+                    if( ( eBox.getPosY() < y + eBox.getModelSize() ) && (eBox.getPosY() > y - eBox.getModelSize() ) ){
+                        PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
+                    }
+                }            
 
 
             } // end for y loop
