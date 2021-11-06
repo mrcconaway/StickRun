@@ -12,10 +12,11 @@ bool game::OnUserCreate()
     p1.setfloor( y_pos );
 
 
-    eBox.setModelSize(10);
-    eBox.setVelX(0);
+    eBox.setModelSize(5);
+    eBox.setVelX(-0.8);
     eBox.setPosY(y_pos);
     eBox.setPosX(x_pos);
+    eBox.setStartOfScreen(ScreenWidth());
 
     return true;
 }
@@ -23,11 +24,18 @@ bool game::OnUserCreate()
 // update game stuff
 bool game::OnUserUpdate(float fElapsedTime) 
 {
+    // update playter position
     if(GetKey(olc::W).bPressed){
     	onKeyPress();
     }
 
     p1.updatepy();
+
+
+    // update enemy box positon
+    eBox.update();
+
+
     gameDraw();
 
     return true;
@@ -53,20 +61,18 @@ void game::gameDraw()
                     PixelGameEngine::Draw(x, y, olc::Pixel(255,  255,  255));
                 }
 
-                // Draw Player
-                if( (p1.getpx() < x + 10 ) && (p1.getpx() > x - 10 ) ){
-                    if( (p1.getpy() < y + 10 ) && (p1.getpy() > y - 10 )){
-                        PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
-                    }
-                }
-
                 // Draw enemy
                 if( (eBox.getPosX() < x + eBox.getModelSize() ) && (eBox.getPosX() > x - eBox.getModelSize() ) ){
                     if( ( eBox.getPosY() < y + eBox.getModelSize() ) && (eBox.getPosY() > y - eBox.getModelSize() ) ){
                         PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
                     }
                 }            
-
+                // Draw Player
+                if( (p1.getpx() < x + 10 ) && (p1.getpx() > x - 10 ) ){
+                    if( (p1.getpy() < y + 10 ) && (p1.getpy() > y - 10 )){
+                        PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
+                    }
+                }
 
             } // end for y loop
         } // end for x loop
