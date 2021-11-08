@@ -5,9 +5,10 @@ class player
 {
 
 public:
-    player(float x = 0, float y = 0){
-        py = y;
-        floor = py;
+    player(int size = 0, float x = 0, float y = 0){
+        setModelSize(size);
+        setpy(y);
+        setfloor(y);
     } // constructor 
 
     //accessor functions
@@ -16,11 +17,16 @@ public:
     float getvy();
     float getay();
     float getfloor();
+    int getModelSize();
+
+
     //mutator functions
     void setpy(float x);
     void setfloor(float x);
     void setvy(float x);
     void setay(float x);
+    void setModelSize(int size);
+
 
     //mutators
     void updatepy();
@@ -33,4 +39,6 @@ private:
     float ay = 20;
     // where is the ground?
     float floor;
+
+    int modelSize;
 };

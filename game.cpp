@@ -1,5 +1,6 @@
 #include "game.h"
 #include "player.h"
+#include "state.h"
 #include "olcPixelGameEngine.h"
 #include <iostream>
 
@@ -10,6 +11,7 @@ bool game::OnUserCreate()
     float x_pos = ScreenWidth() * 0.75;
     p1.setpy( y_pos );
     p1.setfloor( y_pos );
+    p1.setModelSize(10);
 
 
     eBox.setModelSize(5);
@@ -17,7 +19,6 @@ bool game::OnUserCreate()
     eBox.setPosY(y_pos);
     eBox.setPosX(x_pos);
     eBox.setStartOfScreen(ScreenWidth());
-
     return true;
 }
 
@@ -68,8 +69,8 @@ void game::gameDraw()
                     }
                 }            
                 // Draw Player
-                if( (p1.getpx() < x + 10 ) && (p1.getpx() > x - 10 ) ){
-                    if( (p1.getpy() < y + 10 ) && (p1.getpy() > y - 10 )){
+                if( (p1.getpx() < x + p1.getModelSize() ) && (p1.getpx() > x - p1.getModelSize() ) ){
+                    if( (p1.getpy() < y + p1.getModelSize() ) && (p1.getpy() > y - p1.getModelSize() )){
                         PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
                     }
                 }

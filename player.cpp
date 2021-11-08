@@ -17,6 +17,12 @@ float player::getvy(){
 float player::getay(){
     return ay;
 }
+int player::getModelSize()
+{
+    return modelSize;
+}
+
+
 
 
 void player::setpy(float x){
@@ -36,6 +42,12 @@ void player::setvy(float x){
 void player::setay(float x){
     ay = x;
 }
+
+void player::setModelSize(int size)
+{
+    modelSize = size;
+}
+
 
 void player::updatepy()
 {
