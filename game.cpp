@@ -1,6 +1,5 @@
 #include "game.h"
 #include "player.h"
-#include "state.h"
 #include "olcPixelGameEngine.h"
 #include <iostream>
 
@@ -25,6 +24,16 @@ bool game::OnUserCreate()
 // update game stuff
 bool game::OnUserUpdate(float fElapsedTime) 
 {
+
+    switch(gameState){
+        default:
+            break;
+        case MENU:
+            displayMENU();
+            
+    }
+
+
     // update playter position
     if(GetKey(olc::W).bPressed){
     	onKeyPress();
@@ -60,7 +69,7 @@ void game::gameDraw()
                 }
                 else{
                     PixelGameEngine::Draw(x, y, olc::Pixel(255,  255,  255));
-                }
+               }
 
                 // Draw enemy
                 if( (eBox.getPosX() < x + eBox.getModelSize() ) && (eBox.getPosX() > x - eBox.getModelSize() ) ){
@@ -86,5 +95,27 @@ void game::gameDraw()
 void game::onKeyPress(){
     std::cout << "W is Pressed:" << std::endl;
     if(p1.getpy() == p1.getfloor())
-        p1.setvy(-4.25);
+        p1.setvy(-4.00);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// game state logic
+
+void game::displayMENU()
+{
+
+    std::cout << "WHAT UP!" ;
+ 
+
 }
