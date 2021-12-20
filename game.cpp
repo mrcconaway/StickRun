@@ -103,19 +103,11 @@ void game::onKeyPress(){
 
 
 
-
-
-
-
-
-
-
 // game state logic
 
 void game::displayMENU()
 {
 
-    std::cout << "WHAT UP!" ;
  
 
 }

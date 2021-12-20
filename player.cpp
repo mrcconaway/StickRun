@@ -58,12 +58,14 @@ void player::updatepy()
     }
     else{ // safety net
         py = floor;
-        vy = 0;
+        vy = 0.0;
     }
 
 }
 
 void player::updatevy()
 {
-    vy = vy + 0.1;
+    if( vy != 0.0)
+        vy = vy + 0.1;
+    std::cout << " " << vy << std::endl;
 }
