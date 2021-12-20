@@ -1,3 +1,10 @@
+// TODO: Look into how the pixelgameEngine renders text
+
+// TODO: Add a PAUSE game State
+
+// TODO: Add a way to switch between game states
+
+
 #include "game.h"
 #include "player.h"
 #include "olcPixelGameEngine.h"
@@ -30,26 +37,19 @@ bool game::OnUserUpdate(float fElapsedTime)
             break;
         case MENU:
             displayMENU();
-            
+            break;
+        case PAUSE:
+            break;
+        case PLAY:
+            playGame();
+            break;
+
     }
 
-
-    // update playter position
-    if(GetKey(olc::W).bPressed){
-    	onKeyPress();
-    }
-
-    p1.updatepy();
-
-
-    // update enemy box positon
-    eBox.update();
-
-
-    gameDraw();
 
     return true;
 }
+
 void game::gameDraw()
 {
 		// called once per frame
@@ -107,7 +107,53 @@ void game::onKeyPress(){
 
 void game::displayMENU()
 {
-
+    worldDraw();
  
+
+}
+
+void game::worldDraw()
+{
+		// called once per frame
+		for (int x = 0; x < ScreenWidth(); x++){
+			for (int y = 0; y < ScreenHeight(); y++){
+
+                if( (y == int(ScreenHeight() * 0.75 ) ) ){ // draw a black line for a road
+                    PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
+                }
+                else if(y > int(ScreenHeight() * 0.75 ) ) // draw some grass below the black line
+                {
+                    PixelGameEngine::Draw(x, y, olc::Pixel(50,  255,  50));
+                }
+                else{
+                    PixelGameEngine::Draw(x, y, olc::Pixel(255,  255,  255));
+               }
+
+                // TODO: LOOK HOW PIXELGAMEENGINE HANDLES RENDERING TEXT //
+
+
+            } // end for y loop
+        } // end for x loop
+
+
+}
+
+
+void game::playGame()
+{
+
+    // update playter position
+    if(GetKey(olc::W).bPressed){
+    	onKeyPress();
+    }
+
+    p1.updatepy();
+
+
+    // update enemy box positon
+    eBox.update();
+
+
+    gameDraw();
 
 }

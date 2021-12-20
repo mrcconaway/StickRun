@@ -16,6 +16,7 @@ public:
 	bool OnUserCreate()override;
 	bool OnUserUpdate(float fElapsedTime) override;
 	void gameDraw();
+	void worldDraw();
 
 	void onKeyPress();
 
@@ -29,11 +30,12 @@ public:
 	enum StateEngine{
 		MENU,
 		PAUSE,
-		START
+		PLAY
 	};
 
 	StateEngine gameState;
 	void displayMENU();
+	void playGame();
 
 
 
