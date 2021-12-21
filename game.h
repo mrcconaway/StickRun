@@ -13,7 +13,7 @@ public:
 	void gameDraw();
 
 	void onKeyPress();
-
+	void test();
 	public: 
 	olc::Sprite logo;
 };

@@ -13,9 +13,15 @@ bool game::OnUserCreate()
 
 bool game::OnUserUpdate(float fElapsedTime)
 {
-
-
+    test();
 
 
 	return true;
+}
+
+void game::test()
+{
+    DrawSprite(0, 0, &logo);
+
+
 }
