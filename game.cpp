@@ -11,7 +11,7 @@ bool game::OnUserCreate()
 	return true;
 }
 
-bool game::OnUserUpdate()
+bool game::OnUserUpdate(float fElapsedTime)
 {
 
 
