@@ -3,7 +3,6 @@
 
 bool game::OnUserCreate()
 {
-	logo.LoadFromFile("test.png");
 
 
 
@@ -21,7 +20,6 @@ bool game::OnUserUpdate(float fElapsedTime)
 
 void game::test()
 {
-    DrawSprite(0, 0, &logo);
 
 
 }

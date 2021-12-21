@@ -14,7 +14,10 @@ public:
 
 	void onKeyPress();
 	void test();
+
 	public: 
-	olc::Sprite logo;
+
+
+	
 };
 
