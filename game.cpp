@@ -1,4 +1,5 @@
 // TODO: Look into how the pixelgameEngine renders text
+//	Make a better sprite
 
 // TODO: Add a PAUSE game State
 
@@ -26,7 +27,9 @@ bool game::OnUserCreate()
     eBox.setPosX(x_pos);
     eBox.setStartOfScreen(ScreenWidth());
 
-    Logo.LoadFromFile("NotARipOffLogo.png");
+    Logo.LoadFromFile("NotARipfOffLogo.png");
+    // Logo.LoadFromFile("notaripoff.png");
+    // Logo.LoadFromFile("test.png");
     
 
 
@@ -140,7 +143,7 @@ void game::worldDraw()
                // TODO: LOOK HOW PIXELGAMEENGINE HANDLES RENDERING TEXT //
            } // end for y loop
        } // end for x loop
-    PixelGameEngine::DrawSprite(500, 250, &Logo, 800);
+    PixelGameEngine::DrawSprite(0, 0, &Logo, 0.5);
 
 
 }
