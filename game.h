@@ -37,6 +37,8 @@ public:
 	void displayMENU();
 	void playGame();
 
+	public:
+	olc::Sprite Logo;
 
 
 };
