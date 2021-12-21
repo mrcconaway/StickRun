@@ -18,21 +18,3 @@ public:
 	olc::Sprite logo;
 };
 
-bool OnUserCreate()
-{
-	olc::Sprite::LoadFromFile("test.png");
-
-
-
-
-	return true;
-}
-
-bool OnUserUpdate()
-{
-
-
-
-
-	return true;
-}
