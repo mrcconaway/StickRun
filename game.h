@@ -26,6 +26,13 @@ public:
 	player p1;
 	enemyBox eBox;
 
+	public:
+	bool hitDetection();
+	bool jumpOverDetection(player p, enemyBox e);
+	void jumpedEnemyPts(player p, enemyBox e, int pointVal);
+
+	private:
+	bool addJumpPts = false;
 
 	// game State logic
 	public: 

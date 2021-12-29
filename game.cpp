@@ -101,6 +101,14 @@ void game::gameDraw()
         } // end for y loop
     } // end for x loop
     drawScore();
+    if(addJumpPts){
+        if(score.pointTimerSecondElapsed() < 1){
+            DrawString(p1.getpx() + 2, p1.getpy() - 25, "+" + std::to_string(2), olc::DARK_YELLOW );
+        }
+        else{
+            addJumpPts = false;
+        }
+    }
 }
 
 
@@ -177,16 +185,49 @@ void game::playGame()
     // update enemy box positon
     eBox.update();
 
-    if(   ( int(eBox.getPosX() - eBox.getModelSize()) < p1.getpx() + p1.getModelSize() ) && ( int(eBox.getPosX() + eBox.getModelSize()) > p1.getpx() - p1.getModelSize() )
-    &&  ( int( p1.getpy() +  p1.getModelSize() +  eBox.getModelSize() ) >  eBox.getPosY() + eBox.getModelSize() ) ){ // did they collide on x-axis and y-axis?
+    if(   hitDetection() ){ 
         setStateEnd(); // game over
     }
+    else if( jumpOverDetection(p1,eBox) ){
+        jumpedEnemyPts(p1, eBox, 2);
+        addJumpPts = true;
+        score.startPointTimer();
+    }
 
-    // std::cout << int(eBox.getPosX() - eBox.getModelSize()) << " " << p1.getpx() + p1.getModelSize() << " " << int(p1.getpy() +  p1.getModelSize() ) << " " <<  eBox.getPosY() - eBox.getModelSize() << std::endl;
+
 
     gameDraw();
 
 
+}
+
+bool game::hitDetection()
+{
+    return ( int(eBox.getPosX() - eBox.getModelSize()) < p1.getpx() + p1.getModelSize() ) // did they collide on the x-axis?
+    && ( int(eBox.getPosX() + eBox.getModelSize()) > p1.getpx() - p1.getModelSize() ) 
+    &&  ( int( p1.getpy() +  p1.getModelSize() +  eBox.getModelSize() ) >  eBox.getPosY() + eBox.getModelSize() ); // did they collide on the y-axis too?
+}
+
+bool game::jumpOverDetection(player p, enemyBox e)
+{
+    return ( int( p.getpx() - p.getModelSize() ) == int( e.getPosX() + e.getModelSize() ) );
+
+}
+
+
+/**
+ * @brief If the player successfully jumps over the enemyBox, then they get awarded a point
+ * 
+ * @param p -- player 
+ * @param e -- enemy box
+ * @param pointVal -- point val
+ * 
+ * @details Checks to see if the player jumped over enemy box and rewards the player with an extra point (provided by the int pointVal)
+ * @details I want to add new enemies and have them be worth varying points based off of their difficulty. For future features, perhaps each enemyBox will have a "point" value making the pointVal parameter redundent
+ */
+void game::jumpedEnemyPts(player p, enemyBox e, int pointVal)
+{
+    score.updateScore(pointVal);
 }
 
 

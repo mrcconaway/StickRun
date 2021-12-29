@@ -10,7 +10,6 @@ public:
     {
         score = 0;
 	    prevSecond = 0;
-        timer = std::chrono::high_resolution_clock::now();
     }
     void updateScore(int value = 1);
     int getScore()const;
@@ -23,10 +22,14 @@ public:
     int getTime()const;
     void resetTime();
 
+    void startPointTimer();
+    int pointTimerSecondElapsed();
+
 private:
     int score;
 	int prevSecond;
     std::chrono::high_resolution_clock::time_point timer = std::chrono::high_resolution_clock::now(); 
+    std::chrono::high_resolution_clock::time_point pointTimer = std::chrono::high_resolution_clock::now();
 
 };
 
