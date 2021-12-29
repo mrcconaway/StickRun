@@ -22,7 +22,18 @@ int  scoringSystem::getTime()const
     return std::chrono::duration_cast<std::chrono::seconds>(tmp - timer).count();
 }
 
+int scoringSystem::getPrevSecond()const
+{
+    return prevSecond;
+}
+
+bool scoringSystem::secondElapsed()const
+{
+    return ( getTime() > prevSecond )
+}
+
 void scoringSystem::resetTime()
 {
     timer = std::chrono::high_resolution_clock::now();
+    prevSecond = 0;
 }

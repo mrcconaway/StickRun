@@ -230,7 +230,6 @@ void game::reset()
     eBox.setStartOfScreen(ScreenWidth());
     score.setScore(0);
 
-    prevSecond = 0;
     score.resetTime();
 
     setStatePlay();
@@ -248,8 +247,9 @@ void game::drawScore()
     } 
 
     DrawString(x_pos,4, "Score: " + scoreString, olc::BLACK);
-    if(score.getTime() > prevSecond){
-        score.updateScore(score.getTime() - prevSecond );
+    if(score.secondElapsed()){
+        std::cout << score.getTime() - score.getPrevSecond() << " " << score.getTime() << " " << score.getPrevSecond() << std::endl;
+        score.updateScore(score.getTime() - score.getPrevSecond() );
         prevSecond = score.getTime();
     }
 }
