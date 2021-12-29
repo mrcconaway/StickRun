@@ -101,6 +101,14 @@ void game::gameDraw()
         } // end for y loop
     } // end for x loop
     drawScore();
+    if(addJumpPts){
+        if(score.pointTimerSecondElapsed() < 1){
+            DrawString(p1.getpx() + 2, p1.getpy() - 25, "+" + std::to_string(2), olc::DARK_YELLOW );
+        }
+        else{
+            addJumpPts = false;
+        }
+    }
 }
 
 
@@ -180,12 +188,13 @@ void game::playGame()
     if(   hitDetection() ){ 
         setStateEnd(); // game over
     }
-    // else if( jumpOverDetection(p1,eBox) ){
-    //     std::cout << " JUMPED" << std::endl;
-    //     jumpedEnemyPts(p1, eBox, 1);
-    // }
+    else if( jumpOverDetection(p1,eBox) ){
+        jumpedEnemyPts(p1, eBox, 2);
+        addJumpPts = true;
+        score.startPointTimer();
+    }
 
-    // std::cout << int(eBox.getPosX() - eBox.getModelSize()) << " " << p1.getpx() + p1.getModelSize() << " " << int(p1.getpy() +  p1.getModelSize() ) << " " <<  eBox.getPosY() - eBox.getModelSize() << std::endl;
+
 
     gameDraw();
 
@@ -201,8 +210,7 @@ bool game::hitDetection()
 
 bool game::jumpOverDetection(player p, enemyBox e)
 {
-    // return (  int( p.getpy() ) == int(e.getPosY() ) &&  int( p.getpx() ) == int( e.getPosX() ) );
-    return (  p.getpy()  == e.getPosY()  &&  p.getpx()  == e.getPosX()  );
+    return ( int( p.getpx() ) == int( e.getPosX() ) );
 
 }
 
@@ -220,7 +228,6 @@ bool game::jumpOverDetection(player p, enemyBox e)
 void game::jumpedEnemyPts(player p, enemyBox e, int pointVal)
 {
     score.updateScore(pointVal);
-    std::cout << " point added" << std::endl;
 }
 
 
