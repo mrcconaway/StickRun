@@ -22,14 +22,15 @@ public:
     int getTime()const;
     void resetTime();
 
+    void startTimer();
     void startPointTimer();
     int pointTimerSecondElapsed();
 
 private:
     int score;
 	int prevSecond;
-    std::chrono::high_resolution_clock::time_point timer = std::chrono::high_resolution_clock::now(); 
-    std::chrono::high_resolution_clock::time_point pointTimer = std::chrono::high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point timer; 
+    std::chrono::high_resolution_clock::time_point pointTimer;
 
 };
 

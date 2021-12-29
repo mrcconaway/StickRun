@@ -43,6 +43,10 @@ void scoringSystem::resetTime()
     prevSecond = 0;
 }
 
+void scoringSystem::startTimer()
+{
+    timer = std::chrono::high_resolution_clock::now();
+}
 void scoringSystem::startPointTimer()
 {
     pointTimer = std::chrono::high_resolution_clock::now();

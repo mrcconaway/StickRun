@@ -18,9 +18,9 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override;
 	void gameDraw();
 	void worldDraw();
+	void startGame();
 
 	void onWPress();
-	void onPPress();
 
 	private:
 	player p1;
