@@ -171,6 +171,7 @@ void game::gameOver()
     if(GetKey(olc::R).bPressed){
         reset();
     }
+    DrawString(int(ScreenWidth()*0.4), 75, "Final Score: " + std::to_string(score.getScore()), olc::RED );
 }
 
 void game::playGame()
