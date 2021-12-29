@@ -223,14 +223,17 @@ void game::reset()
     float x_pos = ScreenWidth() * 0.75;
     p1.setpy( y_pos );
     p1.setvy(0.0);
+
     eBox.setModelSize(5);
     eBox.setVelX(-0.8);
     eBox.setPosX(x_pos);
     eBox.setStartOfScreen(ScreenWidth());
     score.setScore(0);
-    prevSecond = score.getTime();
-    setStatePlay();
 
+    prevSecond = 0;
+    score.resetTime();
+
+    setStatePlay();
 }
 
 
@@ -240,7 +243,7 @@ void game::drawScore()
     // std::cout << score.getScore() << std::endl;
     std::string scoreString = std::to_string(score.getScore());
     while( scoreString.size() < 5 ){
-        std::cout << scoreString.size() << std::endl;
+        // std::cout << scoreString.size() << std::endl;
         scoreString = "0"+scoreString;
     } 
 
@@ -249,6 +252,4 @@ void game::drawScore()
         score.updateScore(score.getTime() - prevSecond );
         prevSecond = score.getTime();
     }
-
-
 }

@@ -21,3 +21,8 @@ int  scoringSystem::getTime()const
     std::chrono::high_resolution_clock::time_point tmp = std::chrono::high_resolution_clock::now();
     return std::chrono::duration_cast<std::chrono::seconds>(tmp - timer).count();
 }
+
+void scoringSystem::resetTime()
+{
+    timer = std::chrono::high_resolution_clock::now();
+}

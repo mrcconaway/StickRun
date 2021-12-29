@@ -16,6 +16,7 @@ public:
     void setScore(int value = 0);
 
     int getTime()const;
+    void resetTime();
 
 private:
     int score;
