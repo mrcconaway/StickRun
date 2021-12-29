@@ -160,7 +160,9 @@ void game::gameOver()
 {
     worldDraw();
     PixelGameEngine::DrawSprite(0, 0, &endLogo, 0.5);
-    setStateMenu();
+    if(GetKey(olc::R).bPressed){
+        reset();
+    }
 }
 
 void game::playGame()
@@ -213,4 +215,18 @@ void game::setStateEnd()
 void game::onPPress()
 {
     setStatePlay();
+}
+
+void game::reset()
+{
+    float y_pos = ScreenHeight() * 0.75;
+    float x_pos = ScreenWidth() * 0.75;
+    p1.setpy( y_pos );
+    p1.setvy(0.0);
+    eBox.setModelSize(5);
+    eBox.setVelX(-0.8);
+    eBox.setPosX(x_pos);
+    eBox.setStartOfScreen(ScreenWidth());
+    setStatePlay();
+
 }

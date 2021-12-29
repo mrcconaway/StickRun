@@ -46,6 +46,7 @@ public:
 	void setStatePause();
 	void setStatePlay();
 	void setStateEnd();
+	void reset();
 
 
 	public:
