@@ -180,7 +180,7 @@ void game::playGame()
         setStateEnd(); // game over
     }
 
-    std::cout << int(eBox.getPosX() - eBox.getModelSize()) << " " << p1.getpx() + p1.getModelSize() << " " << int(p1.getpy() +  p1.getModelSize() ) << " " <<  eBox.getPosY() - eBox.getModelSize() << std::endl;
+    // std::cout << int(eBox.getPosX() - eBox.getModelSize()) << " " << p1.getpx() + p1.getModelSize() << " " << int(p1.getpy() +  p1.getModelSize() ) << " " <<  eBox.getPosY() - eBox.getModelSize() << std::endl;
 
     gameDraw();
 
