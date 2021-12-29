@@ -18,7 +18,8 @@ public:
 	void gameDraw();
 	void worldDraw();
 
-	void onKeyPress();
+	void onWPress();
+	void onPPress();
 
 	private:
 	player p1;
@@ -30,15 +31,25 @@ public:
 	enum StateEngine{
 		MENU,
 		PAUSE,
-		PLAY
+		PLAY,
+		END
 	};
 
 	StateEngine gameState;
 	void displayMENU();
 	void playGame();
+	void gameOver();
+
+	StateEngine getGameState();
+	void setStateMenu();
+	void setStatePause();
+	void setStatePlay();
+	void setStateEnd();
+
 
 	public:
 	olc::Sprite Logo;
+	olc::Sprite endLogo;
 
 
 };

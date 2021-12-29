@@ -67,5 +67,4 @@ void player::updatevy()
 {
     if( vy != 0.0)
         vy = vy + 0.1;
-    std::cout << " " << vy << std::endl;
 }

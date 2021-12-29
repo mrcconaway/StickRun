@@ -28,6 +28,7 @@ bool game::OnUserCreate()
     eBox.setStartOfScreen(ScreenWidth());
 
     Logo.LoadFromFile("NotARipfOffLogo.png");
+    endLogo.LoadFromFile("loser.png");
     // Logo.LoadFromFile("notaripoff.png");
     // Logo.LoadFromFile("test.png");
     
@@ -52,7 +53,10 @@ bool game::OnUserUpdate(float fElapsedTime)
         case PLAY:
             playGame();
             break;
-
+        case END:
+            //still needs implemented
+            gameOver();
+            break;
     }
 
 
@@ -102,8 +106,8 @@ void game::gameDraw()
 
 
 // figure out inputs and then update player class vy
-void game::onKeyPress(){
-    std::cout << "W is Pressed:" << std::endl;
+void game::onWPress(){
+    // std::cout << "W is Pressed:" << std::endl;
     if(p1.getpy() == p1.getfloor())
         p1.setvy(-4.00);
 }
@@ -118,6 +122,11 @@ void game::onKeyPress(){
 void game::displayMENU()
 {
     worldDraw();
+    PixelGameEngine::DrawSprite(0, 0, &Logo, 0.5);
+	if(GetKey(olc::P).bPressed){
+    	onPPress();
+    }
+
 
  
 
@@ -143,27 +152,62 @@ void game::worldDraw()
                // TODO: LOOK HOW PIXELGAMEENGINE HANDLES RENDERING TEXT //
            } // end for y loop
        } // end for x loop
-    PixelGameEngine::DrawSprite(0, 0, &Logo, 0.5);
 
 
 }
 
+void game::gameOver()
+{
+    worldDraw();
+    PixelGameEngine::DrawSprite(0, 0, &endLogo, 0.5);
+}
 
 void game::playGame()
 {
 
     // update playter position
     if(GetKey(olc::W).bPressed){
-    	onKeyPress();
+    	onWPress();
     }
 
     p1.updatepy();
-
-
     // update enemy box positon
     eBox.update();
-
+    if( ( int(eBox.getPosX() + eBox.getModelSize()) == p1.getpx() - p1.getModelSize() ) || (int(eBox.getPosX() - eBox.getModelSize()) == p1.getpx() + p1.getModelSize() ) 
+        && p1.getpy() +  p1.getModelSize() > eBox.getPosY() + eBox.getModelSize() ){ // did they collide on x-axis and y-axis?
+        setStateEnd(); // game over
+    }
 
     gameDraw();
 
+
+}
+
+
+
+game::StateEngine game::getGameState()
+{
+    return gameState;
+}
+void game::game::setStateMenu()
+{
+    gameState = MENU;
+}
+void game::game::setStatePause()
+{
+    gameState = PAUSE;
+}
+void game::game::setStatePlay()
+{
+    gameState = PLAY;
+}
+void game::setStateEnd()
+{
+    gameState = END;
+}
+
+
+void game::onPPress()
+{
+    setStatePlay();
 }
