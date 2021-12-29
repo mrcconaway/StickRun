@@ -22,6 +22,11 @@ int  scoringSystem::getTime()const
     return std::chrono::duration_cast<std::chrono::seconds>(tmp - timer).count();
 }
 
+void scoringSystem::updatePrevSecond()
+{
+    prevSecond = getTime();
+}
+
 int scoringSystem::getPrevSecond()const
 {
     return prevSecond;
@@ -29,7 +34,7 @@ int scoringSystem::getPrevSecond()const
 
 bool scoringSystem::secondElapsed()const
 {
-    return ( getTime() > prevSecond )
+    return ( getTime() > prevSecond );
 }
 
 void scoringSystem::resetTime()

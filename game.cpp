@@ -250,6 +250,6 @@ void game::drawScore()
     if(score.secondElapsed()){
         std::cout << score.getTime() - score.getPrevSecond() << " " << score.getTime() << " " << score.getPrevSecond() << std::endl;
         score.updateScore(score.getTime() - score.getPrevSecond() );
-        prevSecond = score.getTime();
+        score.updatePrevSecond();
     }
 }

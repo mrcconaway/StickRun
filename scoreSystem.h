@@ -16,6 +16,7 @@ public:
     int getScore()const;
     void setScore(int value = 0);
 
+    void updatePrevSecond();
     int getPrevSecond()const;
     bool secondElapsed()const;
 
