@@ -6,7 +6,11 @@ a.exe: build
 	g++ -o StickRun.exe main.o olcPixelGameEngine.o player.o game.o enemyBox.o scoreSystem.o $(CFLAGS)
 a.out: build
 	g++ -o StickRun.out main.o olcPixelGameEngine.o player.o game.o enemyBox.o scoreSystem.o $(LFLAGS)
-
+run: a.exe
+	./StickRun.exe
+run-linux: a.out
+	./StickRun.out
+	
 main.o: main.cpp olcPixelGameEngine.cpp olcPixelGameEngine.h game.cpp game.h
 	g++ -c main.cpp
 
