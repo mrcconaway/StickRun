@@ -15,7 +15,7 @@
 bool game::OnUserCreate()
 {
     float y_pos = ScreenHeight() * 0.75;
-    float x_pos = ScreenWidth() * 0.75;
+    float x_pos = ScreenWidth();
     p1.setpy( y_pos );
     p1.setfloor( y_pos );
     p1.setModelSize(10);
@@ -132,13 +132,20 @@ void game::displayMENU()
     worldDraw();
     PixelGameEngine::DrawSprite(0, 0, &Logo, 0.5);
 	if(GetKey(olc::P).bPressed){
-    	onPPress();
+        startGame();
     }
 
 
  
 
 }
+
+void game::startGame()
+{
+    score.startTimer();
+    setStatePlay();
+}
+
 
 void game::worldDraw()
 {
@@ -252,11 +259,6 @@ void game::game::setStatePlay()
 void game::setStateEnd()
 {
     gameState = END;
-}
-
-void game::onPPress()
-{
-    setStatePlay();
 }
 
 void game::reset()
