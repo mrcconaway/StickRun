@@ -6,8 +6,14 @@
 class scoringSystem{
 
 public:
+    scoringSystem()
+    {
+        score = 0;
+        timer = std::chrono::high_resolution_clock::now();
+    }
     void updateScore(int value = 1);
     int getScore()const;
+    void setScore(int value = 0);
 
     int getTime()const;
 

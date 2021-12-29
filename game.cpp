@@ -66,41 +66,41 @@ bool game::OnUserUpdate(float fElapsedTime)
 
 void game::gameDraw()
 {
-		// called once per frame
-		for (int x = 0; x < ScreenWidth(); x++){
-			for (int y = 0; y < ScreenHeight(); y++){
+	// called once per frame
+	for (int x = 0; x < ScreenWidth(); x++){
+		for (int y = 0; y < ScreenHeight(); y++){
 
 
 
 
 
-                if( (y == int(ScreenHeight() * 0.75 ) ) ){ // draw a black line for a road
+            if( (y == int(ScreenHeight() * 0.75 ) ) ){ // draw a black line for a road
+                PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
+            }
+            else if(y > int(ScreenHeight() * 0.75 ) ) // draw some grass below the black line
+            {
+                PixelGameEngine::Draw(x, y, olc::Pixel(50,  255,  50));
+            }
+            else{
+                PixelGameEngine::Draw(x, y, olc::Pixel(255,  255,  255));
+           }
+
+            // Draw enemy
+            if( (eBox.getPosX() < x + eBox.getModelSize() ) && (eBox.getPosX() > x - eBox.getModelSize() ) ){
+                if( ( eBox.getPosY() < y + eBox.getModelSize() ) && (eBox.getPosY() > y - eBox.getModelSize() ) ){
+                    PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
+                }
+            }            
+            // Draw Player
+            if( (p1.getpx() < x + p1.getModelSize() ) && (p1.getpx() > x - p1.getModelSize() ) ){
+                if( (p1.getpy() < y + p1.getModelSize() ) && (p1.getpy() > y - p1.getModelSize() )){
                     PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
                 }
-                else if(y > int(ScreenHeight() * 0.75 ) ) // draw some grass below the black line
-                {
-                    PixelGameEngine::Draw(x, y, olc::Pixel(50,  255,  50));
-                }
-                else{
-                    PixelGameEngine::Draw(x, y, olc::Pixel(255,  255,  255));
-               }
+            }
 
-                // Draw enemy
-                if( (eBox.getPosX() < x + eBox.getModelSize() ) && (eBox.getPosX() > x - eBox.getModelSize() ) ){
-                    if( ( eBox.getPosY() < y + eBox.getModelSize() ) && (eBox.getPosY() > y - eBox.getModelSize() ) ){
-                        PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
-                    }
-                }            
-                // Draw Player
-                if( (p1.getpx() < x + p1.getModelSize() ) && (p1.getpx() > x - p1.getModelSize() ) ){
-                    if( (p1.getpy() < y + p1.getModelSize() ) && (p1.getpy() > y - p1.getModelSize() )){
-                        PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
-                    }
-                }
-
-            } // end for y loop
-        } // end for x loop
-
+        } // end for y loop
+    } // end for x loop
+    drawScore();
 }
 
 
@@ -227,6 +227,28 @@ void game::reset()
     eBox.setVelX(-0.8);
     eBox.setPosX(x_pos);
     eBox.setStartOfScreen(ScreenWidth());
+    score.setScore(0);
+    prevSecond = score.getTime();
     setStatePlay();
+
+}
+
+
+void game::drawScore()
+{
+    int32_t x_pos = ScreenWidth()-ScreenWidth()*0.40;
+    // std::cout << score.getScore() << std::endl;
+    std::string scoreString = std::to_string(score.getScore());
+    while( scoreString.size() < 5 ){
+        std::cout << scoreString.size() << std::endl;
+        scoreString = "0"+scoreString;
+    } 
+
+    DrawString(x_pos,4, "Score: " + scoreString, olc::BLACK);
+    if(score.getTime() > prevSecond){
+        score.updateScore(score.getTime() - prevSecond );
+        prevSecond = score.getTime();
+    }
+
 
 }

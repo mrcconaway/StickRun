@@ -1,5 +1,6 @@
 #include "scoreSystem.h"
 
+
 void scoringSystem::updateScore(int value)
 {
     score += value;
@@ -8,6 +9,11 @@ void scoringSystem::updateScore(int value)
 int scoringSystem::getScore()const
 {
     return score;
+}
+
+void scoringSystem::setScore(int value)
+{
+    score = value;
 }
 
 int  scoringSystem::getTime()const

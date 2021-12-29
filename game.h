@@ -56,6 +56,8 @@ public:
 
 	// scoring system
 	scoringSystem score;
+	int prevSecond = 0;
+	void drawScore();
 
 
 };
