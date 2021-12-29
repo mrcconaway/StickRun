@@ -177,16 +177,50 @@ void game::playGame()
     // update enemy box positon
     eBox.update();
 
-    if(   ( int(eBox.getPosX() - eBox.getModelSize()) < p1.getpx() + p1.getModelSize() ) && ( int(eBox.getPosX() + eBox.getModelSize()) > p1.getpx() - p1.getModelSize() )
-    &&  ( int( p1.getpy() +  p1.getModelSize() +  eBox.getModelSize() ) >  eBox.getPosY() + eBox.getModelSize() ) ){ // did they collide on x-axis and y-axis?
+    if(   hitDetection() ){ 
         setStateEnd(); // game over
     }
+    // else if( jumpOverDetection(p1,eBox) ){
+    //     std::cout << " JUMPED" << std::endl;
+    //     jumpedEnemyPts(p1, eBox, 1);
+    // }
 
     // std::cout << int(eBox.getPosX() - eBox.getModelSize()) << " " << p1.getpx() + p1.getModelSize() << " " << int(p1.getpy() +  p1.getModelSize() ) << " " <<  eBox.getPosY() - eBox.getModelSize() << std::endl;
 
     gameDraw();
 
 
+}
+
+bool game::hitDetection()
+{
+    return ( int(eBox.getPosX() - eBox.getModelSize()) < p1.getpx() + p1.getModelSize() ) // did they collide on the x-axis?
+    && ( int(eBox.getPosX() + eBox.getModelSize()) > p1.getpx() - p1.getModelSize() ) 
+    &&  ( int( p1.getpy() +  p1.getModelSize() +  eBox.getModelSize() ) >  eBox.getPosY() + eBox.getModelSize() ); // did they collide on the y-axis too?
+}
+
+bool game::jumpOverDetection(player p, enemyBox e)
+{
+    // return (  int( p.getpy() ) == int(e.getPosY() ) &&  int( p.getpx() ) == int( e.getPosX() ) );
+    return (  p.getpy()  == e.getPosY()  &&  p.getpx()  == e.getPosX()  );
+
+}
+
+
+/**
+ * @brief If the player successfully jumps over the enemyBox, then they get awarded a point
+ * 
+ * @param p -- player 
+ * @param e -- enemy box
+ * @param pointVal -- point val
+ * 
+ * @details Checks to see if the player jumped over enemy box and rewards the player with an extra point (provided by the int pointVal)
+ * @details I want to add new enemies and have them be worth varying points based off of their difficulty. For future features, perhaps each enemyBox will have a "point" value making the pointVal parameter redundent
+ */
+void game::jumpedEnemyPts(player p, enemyBox e, int pointVal)
+{
+    score.updateScore(pointVal);
+    std::cout << " point added" << std::endl;
 }
 
 
@@ -248,7 +282,6 @@ void game::drawScore()
 
     DrawString(x_pos,4, "Score: " + scoreString, olc::BLACK);
     if(score.secondElapsed()){
-        std::cout << score.getTime() - score.getPrevSecond() << " " << score.getTime() << " " << score.getPrevSecond() << std::endl;
         score.updateScore(score.getTime() - score.getPrevSecond() );
         score.updatePrevSecond();
     }
