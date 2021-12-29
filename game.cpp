@@ -210,7 +210,7 @@ bool game::hitDetection()
 
 bool game::jumpOverDetection(player p, enemyBox e)
 {
-    return ( int( p.getpx() ) == int( e.getPosX() ) );
+    return ( int( p.getpx() - p.getModelSize() ) == int( e.getPosX() + e.getModelSize() ) );
 
 }
 
