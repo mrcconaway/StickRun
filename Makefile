@@ -13,7 +13,7 @@ main.o: main.cpp olcPixelGameEngine.cpp olcPixelGameEngine.h game.cpp game.h
 olcPixelGameEngine.o: olcPixelGameEngine.cpp olcPixelGameEngine.h
 	g++ -c olcPixelGameEngine.cpp
 
-game.o: game.h game.cpp player.h player.cpp olcPixelGameEngine.h enemyBox.h enemyBox.cpp
+game.o: game.h game.cpp player.h player.cpp olcPixelGameEngine.h enemyBox.h enemyBox.cpp scoreSystem.h scoreSystem.cpp
 	g++ -c game.cpp
 
 player.o: player.h player.cpp

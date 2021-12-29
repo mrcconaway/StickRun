@@ -160,6 +160,7 @@ void game::gameOver()
 {
     worldDraw();
     PixelGameEngine::DrawSprite(0, 0, &endLogo, 0.5);
+    setStateMenu();
 }
 
 void game::playGame()
@@ -173,10 +174,13 @@ void game::playGame()
     p1.updatepy();
     // update enemy box positon
     eBox.update();
-    if( ( int(eBox.getPosX() + eBox.getModelSize()) == p1.getpx() - p1.getModelSize() ) || (int(eBox.getPosX() - eBox.getModelSize()) == p1.getpx() + p1.getModelSize() ) 
-        && p1.getpy() +  p1.getModelSize() > eBox.getPosY() + eBox.getModelSize() ){ // did they collide on x-axis and y-axis?
+
+    if(   ( int(eBox.getPosX() - eBox.getModelSize()) < p1.getpx() + p1.getModelSize() ) && ( int(eBox.getPosX() + eBox.getModelSize()) > p1.getpx() - p1.getModelSize() )
+    &&  ( int( p1.getpy() +  p1.getModelSize() +  eBox.getModelSize() ) >  eBox.getPosY() + eBox.getModelSize() ) ){ // did they collide on x-axis and y-axis?
         setStateEnd(); // game over
     }
+
+    std::cout << int(eBox.getPosX() - eBox.getModelSize()) << " " << p1.getpx() + p1.getModelSize() << " " << int(p1.getpy() +  p1.getModelSize() ) << " " <<  eBox.getPosY() - eBox.getModelSize() << std::endl;
 
     gameDraw();
 
@@ -205,7 +209,6 @@ void game::setStateEnd()
 {
     gameState = END;
 }
-
 
 void game::onPPress()
 {

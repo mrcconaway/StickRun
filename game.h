@@ -3,6 +3,7 @@
 #include "olcPixelGameEngine.h"
 #include "player.h"
 #include "enemyBox.h"
+#include "scoreSystem.h"
 
 
 class game : public olc::PixelGameEngine
@@ -50,6 +51,10 @@ public:
 	public:
 	olc::Sprite Logo;
 	olc::Sprite endLogo;
+
+
+	// scoring system
+	scoringSystem score;
 
 
 };
