@@ -75,5 +75,11 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "Main.C": "cpp"
+
     }
+
+    
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs":"active"
+    
 }
