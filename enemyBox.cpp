@@ -48,3 +48,23 @@ void enemyBox::update()
         else 
                 posx = startOfScreen;
 }
+
+
+void enemyBox::setPointValue(int val)
+{
+        pointValue = val;
+}
+
+int enemyBox::getPointValue()
+{
+        return pointValue;
+}
+
+void enemyBox::setIsDraw(bool in)
+{
+        isDrawn = in;
+}
+bool enemyBox::getIsDrawn()
+{
+        return isDrawn;
+}

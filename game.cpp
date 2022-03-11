@@ -27,6 +27,7 @@ bool game::OnUserCreate()
     eBox[0].setPosY(y_pos);
     eBox[0].setPosX(x_pos);
     eBox[0].setStartOfScreen(ScreenWidth());
+    eBox[0].setPointValue(2);
 
     Logo.LoadFromFile("NotARipfOffLogo.png");
     endLogo.LoadFromFile("loser.png");
@@ -85,13 +86,15 @@ void game::gameDraw()
             else{
                 PixelGameEngine::Draw(x, y, olc::Pixel(255,  255,  255));
            }
-
-            // Draw enemy
-            if( (eBox[0].getPosX() < x + eBox[0].getModelSize() ) && (eBox[0].getPosX() > x - eBox[0].getModelSize() ) ){
-                if( ( eBox[0].getPosY() < y + eBox[0].getModelSize() ) && (eBox[0].getPosY() > y - eBox[0].getModelSize() ) ){
-                    PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
-                }
-            }            
+            for(int i = 0; i < eBox.size(); i++){
+                // Draw enemy
+                if( (eBox[i].getPosX() < x + eBox[i].getModelSize() ) && (eBox[i].getPosX() > x - eBox[i].getModelSize() ) ){
+                    if( ( eBox[i].getPosY() < y + eBox[i].getModelSize() ) && (eBox[i].getPosY() > y - eBox[i].getModelSize() ) ){
+                        PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
+                    }
+                }   
+            }
+         
             // Draw Player
             if( (p1.getpx() < x + p1.getModelSize() ) && (p1.getpx() > x - p1.getModelSize() ) ){
                 if( (p1.getpy() < y + p1.getModelSize() ) && (p1.getpy() > y - p1.getModelSize() )){
@@ -199,7 +202,7 @@ void game::playGame()
             setStateEnd(); // game over
         }
         else if( jumpOverDetection(p1,eBox[i]) ){
-            jumpedEnemyPts(p1, eBox[i], 2);
+            jumpedEnemyPts(p1, eBox[i], eBox[i].getPointValue());
             addJumpPts = true;
             score.startPointTimer();
         }

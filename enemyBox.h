@@ -1,5 +1,8 @@
 #pragma once
 
+
+// TODO look into including pixelGameEngine's olc::Pixel
+// so I can make each enemy a different color
 class enemyBox
 {
 public:
@@ -10,6 +13,7 @@ public:
         posx = 0.0f;
         startOfScreen = 0.0f;
         isDrawn = false;
+        pointValue = 0;
     }
 
     // mutators
@@ -18,6 +22,9 @@ public:
     void setPosY(float positionY);
     void setPosX(float positionX);
     void setStartOfScreen(float start);
+    void setPointValue(int val);
+    void setIsDraw(bool in);
+    
 
     // accessors
     int getModelSize();
@@ -25,6 +32,8 @@ public:
     float getPosY();
     float getPosX();
     float getStartOfScreen();
+    int getPointValue();
+    bool getIsDrawn();
 
 
     public:
@@ -41,4 +50,5 @@ private:
 
 private:
     bool isDrawn;
+    int pointValue;
 };
