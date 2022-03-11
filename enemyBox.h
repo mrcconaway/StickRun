@@ -31,4 +31,7 @@ private:
 
     float endOfScreen = 0;
     float startOfScreen;
+
+private:
+    bool isDrawn = false;
 };

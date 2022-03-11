@@ -24,7 +24,7 @@ public:
 
 	private:
 	player p1;
-	enemyBox eBox;
+	enemyBox eBox[3];
 
 	public:
 	bool hitDetection();
