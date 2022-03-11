@@ -288,8 +288,9 @@ void game::reset()
     eBox[0].setVelX(-0.8);
     eBox[0].setPosX(x_pos);
     eBox[0].setStartOfScreen(ScreenWidth());
-    score.setScore(0);
+    eBox.pop_back();
 
+    score.setScore(0);
     score.resetTime();
 
     setStatePlay();
