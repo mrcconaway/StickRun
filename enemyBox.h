@@ -3,7 +3,14 @@
 class enemyBox
 {
 public:
-    enemyBox(){}
+    enemyBox(){
+        modelSize = 0;
+        velx = 0.0f;
+        posy = 0.0f;
+        posx = 0.0f;
+        startOfScreen = 0.0f;
+        isDrawn = false;
+    }
 
     // mutators
     void setModelSize(int size);
@@ -33,5 +40,5 @@ private:
     float startOfScreen;
 
 private:
-    bool isDrawn = false;
+    bool isDrawn;
 };

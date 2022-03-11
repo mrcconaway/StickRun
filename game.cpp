@@ -20,12 +20,13 @@ bool game::OnUserCreate()
     p1.setfloor( y_pos );
     p1.setModelSize(10);
 
+    eBox.push_back(enemyBox());
 
-    eBox[1].setModelSize(5);
-    eBox[1].setVelX(-0.8);
-    eBox[1].setPosY(y_pos);
-    eBox[1].setPosX(x_pos);
-    eBox[1].setStartOfScreen(ScreenWidth());
+    eBox[0].setModelSize(5);
+    eBox[0].setVelX(-0.8);
+    eBox[0].setPosY(y_pos);
+    eBox[0].setPosX(x_pos);
+    eBox[0].setStartOfScreen(ScreenWidth());
 
     Logo.LoadFromFile("NotARipfOffLogo.png");
     endLogo.LoadFromFile("loser.png");
@@ -86,8 +87,8 @@ void game::gameDraw()
            }
 
             // Draw enemy
-            if( (eBox[1].getPosX() < x + eBox[1].getModelSize() ) && (eBox[1].getPosX() > x - eBox[1].getModelSize() ) ){
-                if( ( eBox[1].getPosY() < y + eBox[1].getModelSize() ) && (eBox[1].getPosY() > y - eBox[1].getModelSize() ) ){
+            if( (eBox[0].getPosX() < x + eBox[0].getModelSize() ) && (eBox[0].getPosX() > x - eBox[0].getModelSize() ) ){
+                if( ( eBox[0].getPosY() < y + eBox[0].getModelSize() ) && (eBox[0].getPosY() > y - eBox[0].getModelSize() ) ){
                     PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
                 }
             }            
@@ -191,29 +192,29 @@ void game::playGame()
 
     p1.updatepy();
     // update enemy box positon
-    eBox[1].update();
+    for(int i = 0; i < eBox.size(); ++i){
 
-    if(   hitDetection() ){ 
-        setStateEnd(); // game over
+        eBox[i].update();
+        if(   hitDetection(eBox[i]) ){ 
+            setStateEnd(); // game over
+        }
+        else if( jumpOverDetection(p1,eBox[i]) ){
+            jumpedEnemyPts(p1, eBox[i], 2);
+            addJumpPts = true;
+            score.startPointTimer();
+        }
     }
-    else if( jumpOverDetection(p1,eBox[1]) ){
-        jumpedEnemyPts(p1, eBox[1], 2);
-        addJumpPts = true;
-        score.startPointTimer();
-    }
-
-
 
     gameDraw();
 
 
 }
 
-bool game::hitDetection()
+bool game::hitDetection( enemyBox e )
 {
-    return ( int(eBox[1].getPosX() - eBox[1].getModelSize()) < p1.getpx() + p1.getModelSize() ) // did they collide on the x-axis?
-    && ( int(eBox[1].getPosX() + eBox[1].getModelSize()) > p1.getpx() - p1.getModelSize() ) 
-    &&  ( int( p1.getpy() +  p1.getModelSize() +  eBox[1].getModelSize() ) >  eBox[1].getPosY() + eBox[1].getModelSize() ); // did they collide on the y-axis too?
+        return( int(e.getPosX() - e.getModelSize()) < p1.getpx() + p1.getModelSize() ) // did they collide on the x-axis?
+        && ( int(e.getPosX() + e.getModelSize()) > p1.getpx() - p1.getModelSize() ) 
+        &&  ( int( p1.getpy() +  p1.getModelSize() +  e.getModelSize() ) >  e.getPosY() + e.getModelSize() ); // did they collide on the y-axis too?
 }
 
 bool game::jumpOverDetection(player p, enemyBox e)
@@ -268,10 +269,10 @@ void game::reset()
     p1.setpy( y_pos );
     p1.setvy(0.0);
 
-    eBox[1].setModelSize(5);
-    eBox[1].setVelX(-0.8);
-    eBox[1].setPosX(x_pos);
-    eBox[1].setStartOfScreen(ScreenWidth());
+    eBox[0].setModelSize(5);
+    eBox[0].setVelX(-0.8);
+    eBox[0].setPosX(x_pos);
+    eBox[0].setStartOfScreen(ScreenWidth());
     score.setScore(0);
 
     score.resetTime();

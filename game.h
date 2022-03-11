@@ -4,6 +4,7 @@
 #include "player.h"
 #include "enemyBox.h"
 #include "scoreSystem.h"
+#include <vector>
 
 
 class game : public olc::PixelGameEngine
@@ -24,10 +25,10 @@ public:
 
 	private:
 	player p1;
-	enemyBox eBox[3];
+	std::vector<enemyBox> eBox;
 
 	public:
-	bool hitDetection();
+	bool hitDetection( enemyBox e);
 	bool jumpOverDetection(player p, enemyBox e);
 	void jumpedEnemyPts(player p, enemyBox e, int pointVal);
 
