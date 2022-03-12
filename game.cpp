@@ -50,7 +50,8 @@ bool game::OnUserUpdate(float fElapsedTime)
         case MENU:
             displayMENU();
             break;
-        case PAUSE:
+        case PAUSE: 
+            // still needs implemented
             break;
         case PLAY:
             playGame();
