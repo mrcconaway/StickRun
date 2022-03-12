@@ -210,8 +210,8 @@ void game::playGame()
 
     gameDraw();
 
-    if(score.getScore() == 25){ // first threshhold for new enemy so it goes to index 1
-        eBox.push_back(enemyBox());
+    if(score.getScore() >= 25 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
+            eBox.push_back(enemyBox());
             float y_pos = ScreenHeight() * 0.75;
             float x_pos = ScreenWidth();
             eBox[1].setModelSize(3);
@@ -288,7 +288,9 @@ void game::reset()
     eBox[0].setVelX(-0.8);
     eBox[0].setPosX(x_pos);
     eBox[0].setStartOfScreen(ScreenWidth());
-    eBox.pop_back();
+    while(eBox.size() != 1){
+        eBox.pop_back();
+    }
 
     score.setScore(0);
     score.resetTime();
