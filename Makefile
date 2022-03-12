@@ -30,6 +30,10 @@ scoreSystem.o: scoreSystem.h scoreSystem.cpp
 
 build: main.o olcPixelGameEngine.o game.o player.o enemyBox.o scoreSystem.o
 
+debug: build
+	g++ -g -o StickRun.exe main.o olcPixelGameEngine.o player.o game.o enemyBox.o scoreSystem.o $(CFLAGS)
+debug-linux: build
+	g++ -g -o StickRun.out main.o olcPixelGameEngine.o player.o game.o enemyBox.o scoreSystem.o $(LFLAGS)
 clean:
 	-del *.o
 	-rm *.o
