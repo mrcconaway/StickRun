@@ -8,3 +8,10 @@ TODO:
     So.. refacotr the addJumpt logic so that it no longer belings to game.h,but 
     to enemyBox.h, then have a function that checks the boolean value
     and a function that switches it on and off.   
+
+
+
+
+    Side note: I understand now why I call " if(score.pointTimerSecondElapsed() < 1) " 
+    in gamedraw() ( game.h ). It is so that the +2 score is drawn for about a second 
+    as you jump over the enemy
