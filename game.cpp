@@ -28,7 +28,6 @@ bool game::OnUserCreate()
     eBox[0].setPosX(x_pos);
     eBox[0].setStartOfScreen(ScreenWidth());
     eBox[0].setPointValue(2);
-    // eBox[0].setPixelColor(uint8_t(255),uint8_t(0),uint8_t(0), olc::nDefaultAlpha);
     eBox[0].setPixelColor(255,0,0, olc::nDefaultAlpha);
 
     Logo.LoadFromFile("NotARipfOffLogo.png");
