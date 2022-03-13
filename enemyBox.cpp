@@ -1,6 +1,5 @@
 #include "enemyBox.h"
 
-
 void enemyBox::setModelSize(int size){
         modelSize = size;
 } 
@@ -67,4 +66,23 @@ void enemyBox::setIsDraw(bool in)
 bool enemyBox::getIsDrawn()
 {
         return isDrawn;
+}
+
+void enemyBox::setJumped(bool in)
+{
+        jumped = in;
+}
+bool enemyBox::getJumped()
+{
+        return jumped;
+}
+void enemyBox::startJumpedTimer()
+{
+    jumpedTimer = std::chrono::high_resolution_clock::now();
+}
+
+int enemyBox::jumpedTimerSecondElapsed()
+{
+    std::chrono::high_resolution_clock::time_point tmp = std::chrono::high_resolution_clock::now();
+    return std::chrono::duration_cast<std::chrono::seconds>(tmp - jumpedTimer).count();
 }

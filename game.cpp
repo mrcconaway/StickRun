@@ -106,14 +106,17 @@ void game::gameDraw()
         } // end for y loop
     } // end for x loop
     drawScore();
-    if(addJumpPts){
-        if(score.pointTimerSecondElapsed() < 1){
-            DrawString(p1.getpx() + 2, p1.getpy() - 25, "+" + std::to_string(2), olc::DARK_YELLOW );
-        }
-        else{
-            addJumpPts = false;
+    for(int i = 0; i < eBox.size(); ++i){
+        if(eBox[i].getJumped()){
+            if(eBox[i].jumpedTimerSecondElapsed() < 1){
+                DrawString(p1.getpx() + 2, p1.getpy() - 25, "+" + std::to_string(eBox[i].getPointValue()), olc::DARK_YELLOW );
+            }
+            else{
+                eBox[i].setJumped(false);
+            }
         }
     }
+
 }
 
 
@@ -204,8 +207,10 @@ void game::playGame()
         }
         else if( jumpOverDetection(p1,eBox[i]) ){
             jumpedEnemyPts(p1, eBox[i], eBox[i].getPointValue());
-            addJumpPts = true;
-            score.startPointTimer();
+            // addJumpPts = true;
+            eBox[i].setJumped(true);
+            // score.startPointTimer();
+            eBox[i].startJumpedTimer();
         }
     }
 

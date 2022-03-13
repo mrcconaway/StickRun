@@ -1,4 +1,5 @@
 #pragma once
+#include <chrono>
 
 
 // TODO look into including pixelGameEngine's olc::Pixel
@@ -14,6 +15,7 @@ public:
         startOfScreen = 0.0f;
         isDrawn = false;
         pointValue = 0;
+        jumped = false;
     }
 
     // mutators
@@ -24,6 +26,7 @@ public:
     void setStartOfScreen(float start);
     void setPointValue(int val);
     void setIsDraw(bool in);
+    void setJumped(bool in);
     
 
     // accessors
@@ -34,9 +37,13 @@ public:
     float getStartOfScreen();
     int getPointValue();
     bool getIsDrawn();
+    bool getJumped();
 
+public:
+    void startJumpedTimer();
+    int jumpedTimerSecondElapsed();
 
-    public:
+public:
     void update();
 
 private:
@@ -51,4 +58,8 @@ private:
 private:
     bool isDrawn;
     int pointValue;
+    bool jumped;
+
+private:
+    std::chrono::high_resolution_clock::time_point jumpedTimer;
 };
