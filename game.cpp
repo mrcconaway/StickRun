@@ -28,6 +28,8 @@ bool game::OnUserCreate()
     eBox[0].setPosX(x_pos);
     eBox[0].setStartOfScreen(ScreenWidth());
     eBox[0].setPointValue(2);
+    // eBox[0].setPixelColor(uint8_t(255),uint8_t(0),uint8_t(0), olc::nDefaultAlpha);
+    eBox[0].setPixelColor(255,0,0, olc::nDefaultAlpha);
 
     Logo.LoadFromFile("NotARipfOffLogo.png");
     endLogo.LoadFromFile("loser.png");
@@ -73,9 +75,6 @@ void game::gameDraw()
 		for (int y = 0; y < ScreenHeight(); y++){
 
 
-
-
-
             if( (y == int(ScreenHeight() * 0.75 ) ) ){ // draw a black line for a road
                 PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
             }
@@ -90,7 +89,7 @@ void game::gameDraw()
                 // Draw enemy
                 if( (eBox[i].getPosX() < x + eBox[i].getModelSize() ) && (eBox[i].getPosX() > x - eBox[i].getModelSize() ) ){
                     if( ( eBox[i].getPosY() < y + eBox[i].getModelSize() ) && (eBox[i].getPosY() > y - eBox[i].getModelSize() ) ){
-                        PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
+                        PixelGameEngine::Draw(x, y, eBox[i].getPixelColor());
                     }
                 }   
             }
@@ -209,11 +208,12 @@ void game::playGame()
             float y_pos = ScreenHeight() * 0.75;
             float x_pos = ScreenWidth();
             eBox[1].setModelSize(3);
-            eBox[1].setVelX(-2);
+            eBox[1].setVelX(-1.5);
             eBox[1].setPosY(y_pos);
             eBox[1].setPosX(x_pos);
             eBox[1].setStartOfScreen(ScreenWidth());
             eBox[1].setPointValue(5);
+            eBox[1].setPixelColor(0,0,255, olc::nDefaultAlpha);
 
     }
 

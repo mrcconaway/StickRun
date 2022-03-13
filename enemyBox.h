@@ -1,4 +1,5 @@
 #pragma once
+#include "olcPixelGameEngine.h"
 #include <chrono>
 
 
@@ -16,6 +17,8 @@ public:
         isDrawn = false;
         pointValue = 0;
         jumped = false;
+
+        pixelColor = olc::Pixel();
     }
 
     // mutators
@@ -42,6 +45,9 @@ public:
 public:
     void startJumpedTimer();
     int jumpedTimerSecondElapsed();
+public:
+    void setPixelColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha);
+    olc::Pixel getPixelColor();
 
 public:
     void update();
@@ -62,4 +68,7 @@ private:
 
 private:
     std::chrono::high_resolution_clock::time_point jumpedTimer;
+
+private:
+    olc::Pixel pixelColor; 
 };

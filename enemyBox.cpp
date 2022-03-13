@@ -86,3 +86,14 @@ int enemyBox::jumpedTimerSecondElapsed()
     std::chrono::high_resolution_clock::time_point tmp = std::chrono::high_resolution_clock::now();
     return std::chrono::duration_cast<std::chrono::seconds>(tmp - jumpedTimer).count();
 }
+
+void enemyBox::setPixelColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha)
+{
+        olc::Pixel tmp(red,green,blue, alpha);
+        pixelColor = tmp;
+}
+olc::Pixel enemyBox::getPixelColor()
+{
+        return pixelColor;
+}
+
