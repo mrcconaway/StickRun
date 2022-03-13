@@ -20,12 +20,16 @@ bool game::OnUserCreate()
     p1.setfloor( y_pos );
     p1.setModelSize(10);
 
+    eBox.push_back(enemyBox());
 
-    eBox.setModelSize(5);
-    eBox.setVelX(-0.8);
-    eBox.setPosY(y_pos);
-    eBox.setPosX(x_pos);
-    eBox.setStartOfScreen(ScreenWidth());
+    eBox[0].setModelSize(5);
+    eBox[0].setVelX(-0.8);
+    eBox[0].setPosY(y_pos);
+    eBox[0].setPosX(x_pos);
+    eBox[0].setStartOfScreen(ScreenWidth());
+    eBox[0].setPointValue(2);
+    // eBox[0].setPixelColor(uint8_t(255),uint8_t(0),uint8_t(0), olc::nDefaultAlpha);
+    eBox[0].setPixelColor(255,0,0, olc::nDefaultAlpha);
 
     Logo.LoadFromFile("NotARipfOffLogo.png");
     endLogo.LoadFromFile("loser.png");
@@ -48,13 +52,13 @@ bool game::OnUserUpdate(float fElapsedTime)
         case MENU:
             displayMENU();
             break;
-        case PAUSE:
+        case PAUSE: 
+            // still needs implemented
             break;
         case PLAY:
             playGame();
             break;
         case END:
-            //still needs implemented
             gameOver();
             break;
     }
@@ -71,9 +75,6 @@ void game::gameDraw()
 		for (int y = 0; y < ScreenHeight(); y++){
 
 
-
-
-
             if( (y == int(ScreenHeight() * 0.75 ) ) ){ // draw a black line for a road
                 PixelGameEngine::Draw(x, y, olc::Pixel(0,  0,  0));
             }
@@ -84,13 +85,15 @@ void game::gameDraw()
             else{
                 PixelGameEngine::Draw(x, y, olc::Pixel(255,  255,  255));
            }
-
-            // Draw enemy
-            if( (eBox.getPosX() < x + eBox.getModelSize() ) && (eBox.getPosX() > x - eBox.getModelSize() ) ){
-                if( ( eBox.getPosY() < y + eBox.getModelSize() ) && (eBox.getPosY() > y - eBox.getModelSize() ) ){
-                    PixelGameEngine::Draw(x, y, olc::Pixel(255,  0,  0));
-                }
-            }            
+            for(int i = 0; i < eBox.size(); i++){
+                // Draw enemy
+                if( (eBox[i].getPosX() < x + eBox[i].getModelSize() ) && (eBox[i].getPosX() > x - eBox[i].getModelSize() ) ){
+                    if( ( eBox[i].getPosY() < y + eBox[i].getModelSize() ) && (eBox[i].getPosY() > y - eBox[i].getModelSize() ) ){
+                        PixelGameEngine::Draw(x, y, eBox[i].getPixelColor());
+                    }
+                }   
+            }
+         
             // Draw Player
             if( (p1.getpx() < x + p1.getModelSize() ) && (p1.getpx() > x - p1.getModelSize() ) ){
                 if( (p1.getpy() < y + p1.getModelSize() ) && (p1.getpy() > y - p1.getModelSize() )){
@@ -101,14 +104,17 @@ void game::gameDraw()
         } // end for y loop
     } // end for x loop
     drawScore();
-    if(addJumpPts){
-        if(score.pointTimerSecondElapsed() < 1){
-            DrawString(p1.getpx() + 2, p1.getpy() - 25, "+" + std::to_string(2), olc::DARK_YELLOW );
-        }
-        else{
-            addJumpPts = false;
+    for(int i = 0; i < eBox.size(); ++i){
+        if(eBox[i].getJumped()){
+            if(eBox[i].jumpedTimerSecondElapsed() < 1){
+                DrawString(p1.getpx() + 2, p1.getpy() - 25, "+" + std::to_string(eBox[i].getPointValue()), olc::DARK_YELLOW );
+            }
+            else{
+                eBox[i].setJumped(false);
+            }
         }
     }
+
 }
 
 
@@ -134,10 +140,6 @@ void game::displayMENU()
 	if(GetKey(olc::P).bPressed){
         startGame();
     }
-
-
- 
-
 }
 
 void game::startGame()
@@ -149,8 +151,6 @@ void game::startGame()
 
 void game::worldDraw()
 {
-
-
 	// called once per frame
 	for (int x = 0; x < ScreenWidth(); x++){
 		for (int y = 0; y < ScreenHeight(); y++){
@@ -167,8 +167,6 @@ void game::worldDraw()
                // TODO: LOOK HOW PIXELGAMEENGINE HANDLES RENDERING TEXT //
            } // end for y loop
        } // end for x loop
-
-
 }
 
 void game::gameOver()
@@ -191,34 +189,47 @@ void game::playGame()
 
     p1.updatepy();
     // update enemy box positon
-    eBox.update();
-
-    if(   hitDetection() ){ 
-        setStateEnd(); // game over
+    for(int i = 0; i < eBox.size(); ++i){
+        eBox[i].update();
+        if(   hitDetection(eBox[i]) ){ 
+            setStateEnd(); // game over
+        }
+        else if( jumpOverDetection(p1,eBox[i]) && !eBox[i].getJumped() ){
+            eBox[i].setJumped(true);
+            jumpedEnemyPts( eBox[i].getPointValue());
+            eBox[i].startJumpedTimer();
+        }
     }
-    else if( jumpOverDetection(p1,eBox) ){
-        jumpedEnemyPts(p1, eBox, 2);
-        addJumpPts = true;
-        score.startPointTimer();
-    }
-
-
 
     gameDraw();
+
+    if(score.getScore() >= 25 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
+            eBox.push_back(enemyBox());
+            float y_pos = ScreenHeight() * 0.75;
+            float x_pos = ScreenWidth();
+            eBox[1].setModelSize(3);
+            eBox[1].setVelX(-1.5);
+            eBox[1].setPosY(y_pos);
+            eBox[1].setPosX(x_pos);
+            eBox[1].setStartOfScreen(ScreenWidth());
+            eBox[1].setPointValue(5);
+            eBox[1].setPixelColor(0,0,255, olc::nDefaultAlpha);
+
+    }
 
 
 }
 
-bool game::hitDetection()
+bool game::hitDetection( enemyBox e )
 {
-    return ( int(eBox.getPosX() - eBox.getModelSize()) < p1.getpx() + p1.getModelSize() ) // did they collide on the x-axis?
-    && ( int(eBox.getPosX() + eBox.getModelSize()) > p1.getpx() - p1.getModelSize() ) 
-    &&  ( int( p1.getpy() +  p1.getModelSize() +  eBox.getModelSize() ) >  eBox.getPosY() + eBox.getModelSize() ); // did they collide on the y-axis too?
+        return( int(e.getPosX() - e.getModelSize()) < p1.getpx() + p1.getModelSize() ) // did they collide on the x-axis?
+        && ( int(e.getPosX() + e.getModelSize()) > p1.getpx() - p1.getModelSize() ) 
+        &&  ( int( p1.getpy() +  p1.getModelSize() +  e.getModelSize() ) >  e.getPosY() + e.getModelSize() ); // did they collide on the y-axis too?
 }
 
 bool game::jumpOverDetection(player p, enemyBox e)
 {
-    return ( int( p.getpx() - p.getModelSize() ) == int( e.getPosX() + e.getModelSize() ) );
+    return ( int( p.getpx() - p.getModelSize() ) >= int( e.getPosX() + e.getModelSize() ) );
 
 }
 
@@ -233,7 +244,7 @@ bool game::jumpOverDetection(player p, enemyBox e)
  * @details Checks to see if the player jumped over enemy box and rewards the player with an extra point (provided by the int pointVal)
  * @details I want to add new enemies and have them be worth varying points based off of their difficulty. For future features, perhaps each enemyBox will have a "point" value making the pointVal parameter redundent
  */
-void game::jumpedEnemyPts(player p, enemyBox e, int pointVal)
+void game::jumpedEnemyPts( int pointVal)
 {
     score.updateScore(pointVal);
 }
@@ -268,12 +279,15 @@ void game::reset()
     p1.setpy( y_pos );
     p1.setvy(0.0);
 
-    eBox.setModelSize(5);
-    eBox.setVelX(-0.8);
-    eBox.setPosX(x_pos);
-    eBox.setStartOfScreen(ScreenWidth());
-    score.setScore(0);
+    eBox[0].setModelSize(5);
+    eBox[0].setVelX(-0.8);
+    eBox[0].setPosX(x_pos);
+    eBox[0].setStartOfScreen(ScreenWidth());
+    while(eBox.size() != 1){
+        eBox.pop_back();
+    }
 
+    score.setScore(0);
     score.resetTime();
 
     setStatePlay();
@@ -283,10 +297,8 @@ void game::reset()
 void game::drawScore()
 {
     int32_t x_pos = ScreenWidth()-ScreenWidth()*0.40;
-    // std::cout << score.getScore() << std::endl;
     std::string scoreString = std::to_string(score.getScore());
     while( scoreString.size() < 5 ){
-        // std::cout << scoreString.size() << std::endl;
         scoreString = "0"+scoreString;
     } 
 

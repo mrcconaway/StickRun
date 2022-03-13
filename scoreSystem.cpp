@@ -47,13 +47,3 @@ void scoringSystem::startTimer()
 {
     timer = std::chrono::high_resolution_clock::now();
 }
-void scoringSystem::startPointTimer()
-{
-    pointTimer = std::chrono::high_resolution_clock::now();
-}
-
-int scoringSystem::pointTimerSecondElapsed()
-{
-    std::chrono::high_resolution_clock::time_point tmp = std::chrono::high_resolution_clock::now();
-    return std::chrono::duration_cast<std::chrono::seconds>(tmp - pointTimer).count();
-}
