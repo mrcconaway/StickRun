@@ -103,17 +103,22 @@ void game::gameDraw()
         } // end for y loop
     } // end for x loop
     drawScore();
+    int tmpScore = 0;
     for(int i = 0; i < eBox.size(); ++i){
-        if(eBox[i].getJumped()){
-            if(eBox[i].jumpedTimerSecondElapsed() < 1){
-                DrawString(p1.getpx() + 2, p1.getpy() - 25, "+" + std::to_string(eBox[i].getPointValue()), olc::DARK_YELLOW );
-            }
-            else{
-                eBox[i].setJumped(false);
-            }
+        if(eBox[i].getJumped()){   // at least one block has been jumped
+                if(eBox[i].jumpedTimerSecondElapsed() < 1){
+                    tmpScore += eBox[i].getPointValue();
+                }
+                else{
+                    tmpScore -= eBox[i].getPointValue();
+                    eBox[i].setJumped(false);
+                }
         }
-    }
 
+    }
+    if(tmpScore > 0){
+        DrawString(p1.getpx() + 2, p1.getpy() - 25, "+" + std::to_string(tmpScore), olc::DARK_YELLOW );
+    }
 }
 
 
