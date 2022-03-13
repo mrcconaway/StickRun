@@ -1,17 +1,4 @@
 TODO:
 
-    addJumpPts logic needs refactored. With multiple enemies, I need to 
-    re-assign the bool jumped logic to each individual "enemyBox" then check 
-    whether or not the enemyBox is jumped (iterate through 0 - eBox.size() ), 
-    then draw the +2 (or +5) sprite. 
-
-    So.. refacotr the addJumpt logic so that it no longer belings to game.h,but 
-    to enemyBox.h, then have a function that checks the boolean value
-    and a function that switches it on and off.   
-
-
-
-
-    Side note: I understand now why I call " if(score.pointTimerSecondElapsed() < 1) " 
-    in gamedraw() ( game.h ). It is so that the +2 score is drawn for about a second 
-    as you jump over the enemy
+    Make it so if 2+ enemies are jumped at the same time, 
+    the additonal points are added then displayed
