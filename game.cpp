@@ -57,7 +57,6 @@ bool game::OnUserUpdate(float fElapsedTime)
             playGame();
             break;
         case END:
-            //still needs implemented
             gameOver();
             break;
     }
@@ -142,10 +141,6 @@ void game::displayMENU()
 	if(GetKey(olc::P).bPressed){
         startGame();
     }
-
-
- 
-
 }
 
 void game::startGame()
@@ -157,8 +152,6 @@ void game::startGame()
 
 void game::worldDraw()
 {
-
-
 	// called once per frame
 	for (int x = 0; x < ScreenWidth(); x++){
 		for (int y = 0; y < ScreenHeight(); y++){
@@ -175,8 +168,6 @@ void game::worldDraw()
                // TODO: LOOK HOW PIXELGAMEENGINE HANDLES RENDERING TEXT //
            } // end for y loop
        } // end for x loop
-
-
 }
 
 void game::gameOver()
@@ -206,15 +197,14 @@ void game::playGame()
         }
         else if( jumpOverDetection(p1,eBox[i]) && !eBox[i].getJumped() ){
             eBox[i].setJumped(true);
-            std::cout << i << " " << eBox[i].getPointValue() << std::endl;
-            jumpedEnemyPts(p1, eBox[i], eBox[i].getPointValue());
+            jumpedEnemyPts( eBox[i].getPointValue());
             eBox[i].startJumpedTimer();
         }
     }
 
     gameDraw();
 
-    if(score.getScore() >= 2 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
+    if(score.getScore() >= 25 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
             eBox.push_back(enemyBox());
             float y_pos = ScreenHeight() * 0.75;
             float x_pos = ScreenWidth();
@@ -224,9 +214,7 @@ void game::playGame()
             eBox[1].setPosX(x_pos);
             eBox[1].setStartOfScreen(ScreenWidth());
             eBox[1].setPointValue(5);
-            // for(int i = 0; i < eBox.size(); ++i){
-            //     std::cout << eBox[i].getPointValue() << std::endl;
-            // }
+
     }
 
 
@@ -241,7 +229,7 @@ bool game::hitDetection( enemyBox e )
 
 bool game::jumpOverDetection(player p, enemyBox e)
 {
-    return ( int( p.getpx() - p.getModelSize() ) == int( e.getPosX() + e.getModelSize() ) );
+    return ( int( p.getpx() - p.getModelSize() ) >= int( e.getPosX() + e.getModelSize() ) );
 
 }
 
@@ -256,9 +244,8 @@ bool game::jumpOverDetection(player p, enemyBox e)
  * @details Checks to see if the player jumped over enemy box and rewards the player with an extra point (provided by the int pointVal)
  * @details I want to add new enemies and have them be worth varying points based off of their difficulty. For future features, perhaps each enemyBox will have a "point" value making the pointVal parameter redundent
  */
-void game::jumpedEnemyPts(player p, enemyBox e, int pointVal)
+void game::jumpedEnemyPts( int pointVal)
 {
-    // std::cout << pointVal << std::endl;
     score.updateScore(pointVal);
 }
 
@@ -310,16 +297,14 @@ void game::reset()
 void game::drawScore()
 {
     int32_t x_pos = ScreenWidth()-ScreenWidth()*0.40;
-    // std::cout << score.getScore() << std::endl;
     std::string scoreString = std::to_string(score.getScore());
     while( scoreString.size() < 5 ){
-        // std::cout << scoreString.size() << std::endl;
         scoreString = "0"+scoreString;
     } 
 
     DrawString(x_pos,4, "Score: " + scoreString, olc::BLACK);
-    // if(score.secondElapsed()){
-    //     score.updateScore(score.getTime() - score.getPrevSecond() );
-    //     score.updatePrevSecond();
-    // }
+    if(score.secondElapsed()){
+        score.updateScore(score.getTime() - score.getPrevSecond() );
+        score.updatePrevSecond();
+    }
 }

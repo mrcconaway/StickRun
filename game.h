@@ -13,8 +13,7 @@ public:
 	game()
 	{
 		sAppName = "Stick Run";
-		// gameState = MENU;
-		gameState = PLAY;
+		gameState = MENU;
 	}
 	bool OnUserCreate()override;
 	bool OnUserUpdate(float fElapsedTime) override;
@@ -31,7 +30,7 @@ public:
 	public:
 	bool hitDetection( enemyBox e);
 	bool jumpOverDetection(player p, enemyBox e);
-	void jumpedEnemyPts(player p, enemyBox e, int pointVal);
+	void jumpedEnemyPts( int pointVal);
 
 	private:
 	bool addJumpPts = false;
