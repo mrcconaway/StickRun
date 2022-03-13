@@ -13,7 +13,8 @@ public:
 	game()
 	{
 		sAppName = "Stick Run";
-		gameState = MENU;
+		// gameState = MENU;
+		gameState = PLAY;
 	}
 	bool OnUserCreate()override;
 	bool OnUserUpdate(float fElapsedTime) override;

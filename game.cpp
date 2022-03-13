@@ -200,23 +200,21 @@ void game::playGame()
     p1.updatepy();
     // update enemy box positon
     for(int i = 0; i < eBox.size(); ++i){
-
         eBox[i].update();
         if(   hitDetection(eBox[i]) ){ 
             setStateEnd(); // game over
         }
-        else if( jumpOverDetection(p1,eBox[i]) ){
-            jumpedEnemyPts(p1, eBox[i], eBox[i].getPointValue());
-            // addJumpPts = true;
+        else if( jumpOverDetection(p1,eBox[i]) && !eBox[i].getJumped() ){
             eBox[i].setJumped(true);
-            // score.startPointTimer();
+            std::cout << i << " " << eBox[i].getPointValue() << std::endl;
+            jumpedEnemyPts(p1, eBox[i], eBox[i].getPointValue());
             eBox[i].startJumpedTimer();
         }
     }
 
     gameDraw();
 
-    if(score.getScore() >= 25 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
+    if(score.getScore() >= 2 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
             eBox.push_back(enemyBox());
             float y_pos = ScreenHeight() * 0.75;
             float x_pos = ScreenWidth();
@@ -226,6 +224,9 @@ void game::playGame()
             eBox[1].setPosX(x_pos);
             eBox[1].setStartOfScreen(ScreenWidth());
             eBox[1].setPointValue(5);
+            // for(int i = 0; i < eBox.size(); ++i){
+            //     std::cout << eBox[i].getPointValue() << std::endl;
+            // }
     }
 
 
@@ -257,6 +258,7 @@ bool game::jumpOverDetection(player p, enemyBox e)
  */
 void game::jumpedEnemyPts(player p, enemyBox e, int pointVal)
 {
+    // std::cout << pointVal << std::endl;
     score.updateScore(pointVal);
 }
 
@@ -316,8 +318,8 @@ void game::drawScore()
     } 
 
     DrawString(x_pos,4, "Score: " + scoreString, olc::BLACK);
-    if(score.secondElapsed()){
-        score.updateScore(score.getTime() - score.getPrevSecond() );
-        score.updatePrevSecond();
-    }
+    // if(score.secondElapsed()){
+    //     score.updateScore(score.getTime() - score.getPrevSecond() );
+    //     score.updatePrevSecond();
+    // }
 }
