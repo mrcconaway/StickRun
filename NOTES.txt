@@ -1,4 +1,11 @@
 TODO:
 
-    Make it so if 2+ enemies are jumped at the same time, 
-    the additonal points are added then displayed
+    * ADD a third an final enemy (that sways in the sky)
+
+    * Implement a double jump feature (halve the current jump height and make it so a double jump = current jump height)
+
+    * Change white background to something less hars
+
+    * Add a way to save and load and display prior scores
+
+    * Harrass spencer for some pixelArt
