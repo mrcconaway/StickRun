@@ -9,6 +9,8 @@ public:
         setModelSize(size);
         setpy(y);
         setfloor(y);
+        jump = false;
+        doubleJump = false;
     } // constructor 
 
     //accessor functions
@@ -27,6 +29,15 @@ public:
     void setay(float x);
     void setModelSize(int size);
 
+    // Double Jump
+    bool isJumping();
+    bool isDoubleJumping();
+
+    void setJumpingTrue();
+    void setJumpingFalse();
+
+    void setDoubleJumpingTrue();
+    void setDoubleJumpingFalse();
 
     //mutators
     void updatepy();
@@ -41,4 +52,7 @@ private:
     float floor;
 
     int modelSize;
+    
+    bool jump;
+    bool doubleJump;
 };

@@ -1,5 +1,4 @@
 #include "player.h"
-#include <iostream>
 
 
 float player::getpy(){
@@ -57,6 +56,8 @@ void player::updatepy()
         updatevy();
     }
     else{ // safety net
+        setJumpingFalse();
+        setDoubleJumpingFalse();
         py = floor;
         vy = 0.0;
     }
@@ -67,4 +68,29 @@ void player::updatevy()
 {
     if( vy != 0.0)
         vy = vy + 0.1;
+}
+
+bool player::isJumping()
+{
+    return jump;
+}
+bool player::isDoubleJumping()
+{
+    return doubleJump;
+}
+void player::setJumpingTrue()
+{
+    jump = true;
+}
+void player::setJumpingFalse()
+{
+    jump = false;
+}
+void player::setDoubleJumpingTrue()
+{
+    doubleJump = true;
+}
+void player::setDoubleJumpingFalse()
+{
+    doubleJump = false;
 }
