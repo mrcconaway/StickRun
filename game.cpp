@@ -128,7 +128,7 @@ void game::onWPress(){
     // std::cout << "W is Pressed:" << std::endl;
     if(p1.getpy() == p1.getfloor()){
         // p1.setvy(-4.00);
-        p1.setvy(-3.00);
+        p1.setvy(-3.25);
         p1.setJumpingTrue();
     }
     else if(p1.getpy() < p1.getfloor() && !p1.isDoubleJumping())
