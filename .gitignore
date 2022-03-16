@@ -33,3 +33,6 @@
 
 #vscode stuff
 *.vscode
+
+#highscore.dat
+*.dat
