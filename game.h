@@ -85,4 +85,19 @@ public:
 	int calls = 0;
 	std::string strhighscore = "High Score:";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+private:
+	bool playApp = true;
 };

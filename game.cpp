@@ -44,7 +44,6 @@ bool game::OnUserCreate()
 // update game stuff
 bool game::OnUserUpdate(float fElapsedTime) 
 {
-
     switch(gameState){
         default:
             break;
@@ -62,13 +61,13 @@ bool game::OnUserUpdate(float fElapsedTime)
             break;
         case QUIT:
             quit();
-            return false;
+            playApp = false;
             break;
     }
 
 
 
-    return true;
+    return playApp;
 }
 
 void game::gameDraw()
