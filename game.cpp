@@ -60,6 +60,10 @@ bool game::OnUserUpdate(float fElapsedTime)
         case END:
             gameOver();
             break;
+        case QUIT:
+            quit();
+            return false;
+            break;
     }
 
 
@@ -179,6 +183,13 @@ void game::worldDraw()
                // TODO: LOOK HOW PIXELGAMEENGINE HANDLES RENDERING TEXT //
            } // end for y loop
        } // end for x loop
+
+}
+
+void game::quit()
+{
+
+    saveFile();
 }
 
 void game::gameOver()
@@ -188,12 +199,26 @@ void game::gameOver()
     if(GetKey(olc::R).bPressed){
         reset();
     }
+    if(calls == 0){
+        if(highscore.empty() )
+            highscore.push_back(score.getScore());
+        else if(score.getScore() > highscore[0]){
+            highscore.push_back(score.getScore());
+            std::sort(highscore.begin(), highscore.end(), std::greater<int>());
+        }
+        calls++;
+    }
+
+    DrawString(int(ScreenWidth()*0.4), 25, "High Score: " + std::to_string(highscore[0]), olc::DARK_YELLOW );
     DrawString(int(ScreenWidth()*0.4), 75, "Final Score: " + std::to_string(score.getScore()), olc::RED );
+    if(GetKey(olc::Q).bPressed){
+        std::cout << "Q Pressed" << std::endl;
+    	gameState = QUIT;
+    }
 }
 
 void game::playGame()
 {
-
     // update playter position
     if(GetKey(olc::W).bPressed){
     	onWPress();
@@ -302,6 +327,7 @@ void game::reset()
     score.setScore(0);
     score.resetTime();
 
+    calls = 0;
     setStatePlay();
 }
 
@@ -318,5 +344,67 @@ void game::drawScore()
     if(score.secondElapsed()){
         score.updateScore(score.getTime() - score.getPrevSecond() );
         score.updatePrevSecond();
+    }
+}
+
+
+
+
+
+
+// file system
+void game::openfile()
+{
+    finp.open( "resource/highscore.dat" );
+    if( finp.good() ){ // file exists
+        readFile(finp);
+        finp.close();
+    }
+    else{ // Assume this is the first time we ran program and no highscore file exists
+        //  create directory
+        create_dir();
+    }   
+
+}
+
+void game::create_dir()
+{
+    std::string dir = "resource";
+    std::filesystem::create_directories(dir.c_str());
+}
+
+void game::readFile(std::ifstream& inp)
+{
+    int tmp;
+    do{
+        finp >> tmp;
+        // if(highscore.size() >=  2 && highscore[highscore.size()-1] == tmp){
+
+        // }
+        // else
+        //     highscore.push_back(tmp); // highest value will be at bottom
+            highscore.push_back(tmp);
+
+    }while(!inp.eof());
+    
+}
+
+void game::saveFile()
+{
+
+    fout.open(highscorePath.c_str());
+    if(fout.fail()){
+        std::cout << "Unable to save highscores" << std::endl;
+    }
+    else{
+        save(fout);
+    }
+    fout.close();
+
+}
+void game::save(std::ostream& out)
+{
+    for(auto x : highscore ){
+        out << x << std::endl;
     }
 }

@@ -5,6 +5,8 @@
 #include "enemyBox.h"
 #include "scoreSystem.h"
 #include <vector>
+#include <fstream>
+#include <filesystem>
 
 
 class game : public olc::PixelGameEngine
@@ -14,6 +16,7 @@ public:
 	{
 		sAppName = "Stick Run";
 		gameState = MENU;
+		openfile();
 	}
 	bool OnUserCreate()override;
 	bool OnUserUpdate(float fElapsedTime) override;
@@ -41,13 +44,15 @@ public:
 		MENU,
 		PAUSE,
 		PLAY,
-		END
+		END,
+		QUIT
 	};
 
 	StateEngine gameState;
 	void displayMENU();
 	void playGame();
 	void gameOver();
+	void quit();
 
 	StateEngine getGameState();
 	void setStateMenu();
@@ -66,5 +71,17 @@ public:
 	scoringSystem score;
 	void drawScore();
 
+
+	// high score
+	std::string highscorePath = "resource/highscore.dat";
+	std::ifstream finp; 
+	std::ofstream fout;
+	void openfile();
+	void create_dir();
+    void readFile(std::ifstream& inp);
+	void saveFile();
+	void save(std::ostream& out);
+	std::vector<int> highscore;
+	int calls = 0;
 
 };
