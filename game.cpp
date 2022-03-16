@@ -10,6 +10,8 @@
 #include "player.h"
 #include "olcPixelGameEngine.h"
 #include <iostream>
+#include <stdlib.h> // srand, rand
+#include <time.h> // time
 
 // initize game stuff
 bool game::OnUserCreate()
@@ -37,7 +39,8 @@ bool game::OnUserCreate()
     // Logo.LoadFromFile("test.png");
     
 
-
+    /* initialize random seed: */
+    srand(time(NULL));
 
     return true;
 }
@@ -244,12 +247,12 @@ void game::playGame()
     if(score.getScore() >= 25 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
             eBox.push_back(enemyBox());
             float y_pos = ScreenHeight() * 0.75;
-            float x_pos = ScreenWidth();
+            float x_pos = ScreenWidth() + (rand() % 20 );
             eBox[1].setModelSize(3);
             eBox[1].setVelX(-1.5);
             eBox[1].setPosY(y_pos);
             eBox[1].setPosX(x_pos);
-            eBox[1].setStartOfScreen(ScreenWidth());
+            eBox[1].setStartOfScreen(x_pos);
             eBox[1].setStarYAxis(y_pos);
 
             eBox[1].setPointValue(5);
@@ -259,14 +262,15 @@ void game::playGame()
     if(score.getScore() >= 50 && eBox.size() == 2){ // 2nd thresholf for new enemy so its goes to index 2
     // if(score.getScore() >= 1 && eBox.size() == 1){ // testing
         eBox.push_back(enemyBox());
-        float y_pos = ScreenHeight() * 0.75 - 25;
-        float x_pos = ScreenWidth() - 20;
+        float y_pos = ScreenHeight() * 0.75 + 25;
+        float x_pos = ScreenWidth() + (rand() % 30);
         eBox[2].setModelSize(5);
         eBox[2].setVelX(-0.75);
         eBox[2].setVelY(-0.5);
+        eBox[2].setWeightY(-0.09);
         eBox[2].setPosY(y_pos);
         eBox[2].setPosX(x_pos);
-        eBox[2].setStartOfScreen(ScreenWidth());
+        eBox[2].setStartOfScreen(x_pos);
         eBox[2].setStarYAxis(ScreenHeight() * 0.75);
         eBox[2].setPointValue(10);
         eBox[2].setPixelColor(255,0,255, olc::nDefaultAlpha);

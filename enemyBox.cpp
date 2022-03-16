@@ -53,19 +53,28 @@ void enemyBox::update()
         else 
                 posx = startOfScreen;
 }
+void enemyBox::setWeightY(float weight)
+{
+        weighty = weight;
+}
 
 void enemyBox::updateY()
 {
         posy += vely;
         if(posy <= startYAxis - 50){
                 vely *= -1;
+                weighty *= -1;
         }
         else if(posy >= startYAxis + 50){
               vely *= -1;  
+              weighty *= -1;
         }
         else{
                 return;
         }
+}
+void enemyBox::updateVelY(){
+        vely = vely + weighty;
 }
 
 void enemyBox::setPointValue(int val)

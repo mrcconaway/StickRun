@@ -14,6 +14,7 @@ public:
         vely = 0.0f;
         posy = 0.0f;
         posx = 0.0f;
+        weighty = 0.0f;
         startOfScreen = 0.0f;
         startYAxis = 0.0f;
         
@@ -28,6 +29,8 @@ public:
     void setModelSize(int size);
     void setVelX(float velocity);
     void setVelY(float velocity);
+    void updateVelY();
+    void setWeightY(float weight);
     void setPosY(float positionY);
     void setPosX(float positionX);
     void setStartOfScreen(float start);
@@ -65,6 +68,7 @@ private:
     float vely;
     float posy;
     float posx;
+    float weighty;
 
     float endOfScreen = 0;
     float startOfScreen;
