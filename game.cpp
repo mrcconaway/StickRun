@@ -30,8 +30,8 @@ bool game::OnUserCreate()
     eBox[0].setPointValue(2);
     eBox[0].setPixelColor(255,0,0, olc::nDefaultAlpha);
 
-    Logo.LoadFromFile("NotARipfOffLogo.png");
-    endLogo.LoadFromFile("loser.png");
+    Logo.LoadFromFile("resource/NotARipfOffLogo.png");
+    endLogo.LoadFromFile("resource/loser.png");
     // Logo.LoadFromFile("notaripoff.png");
     // Logo.LoadFromFile("test.png");
     
