@@ -275,7 +275,8 @@ bool game::hitDetection( enemyBox e )
 {
         return( int(e.getPosX() - e.getModelSize()) < p1.getpx() + p1.getModelSize() ) // did they collide on the x-axis?
         && ( int(e.getPosX() + e.getModelSize()) > p1.getpx() - p1.getModelSize() ) 
-        &&  ( int( p1.getpy() +  p1.getModelSize() +  e.getModelSize() ) >  e.getPosY() + e.getModelSize() ); // did they collide on the y-axis too?
+        &&  ( int( p1.getpy() +  p1.getModelSize() +  e.getModelSize() ) >  e.getPosY() + e.getModelSize() )
+        && ( int( p1.getpy() -  p1.getModelSize() -  e.getModelSize() ) <  e.getPosY() - e.getModelSize() ); // did they collide on the y-axis too?
 }
 
 bool game::jumpOverDetection(player p, enemyBox e)
