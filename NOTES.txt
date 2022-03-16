@@ -5,6 +5,7 @@ TODO:
     * Change white background to something less harsh
 
     * Add a way to save and load and display prior scores
-        ** Add a highscore feature
+        ** Add a highscore feature -> Added as of 3/15/22
+        *** Perhaps in the future, I will flesh this feature out more (add name and date perhaps)... but not today
 
     * Harrass spencer for some pixelArt
