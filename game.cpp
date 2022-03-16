@@ -188,7 +188,6 @@ void game::worldDraw()
 
 void game::quit()
 {
-
     saveFile();
 }
 
@@ -200,9 +199,13 @@ void game::gameOver()
         reset();
     }
     if(calls == 0){
-        if(highscore.empty() )
+        if(highscore.empty() ){
             highscore.push_back(score.getScore());
+        }
         else if(score.getScore() > highscore[0]){
+             std::cout << "YOPOOOOOO " << highscore.size() << " score : " << score.getScore() << " " << highscore[0]<< std::endl;
+
+            std::cout << score.getScore() << " " << highscore[0] << std::endl;
             highscore.push_back(score.getScore());
             std::sort(highscore.begin(), highscore.end(), std::greater<int>());
         }
@@ -378,14 +381,15 @@ void game::readFile(std::ifstream& inp)
     int tmp;
     do{
         finp >> tmp;
-        // if(highscore.size() >=  2 && highscore[highscore.size()-1] == tmp){
+        if(highscore.size() >=  2 && highscore[highscore.size()-1] == tmp){
 
-        // }
-        // else
-        //     highscore.push_back(tmp); // highest value will be at bottom
-            highscore.push_back(tmp);
+        }
+        else
+            highscore.push_back(tmp); // highest value will be at bottom
 
-    }while(!inp.eof());
+
+    }while(!inp.peek() == inp.eof());
+    std::sort(highscore.begin(), highscore.end(), std::greater<int>());
     
 }
 
