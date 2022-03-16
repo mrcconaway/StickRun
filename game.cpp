@@ -201,21 +201,18 @@ void game::gameOver()
     if(calls == 0){
         if(highscore.empty() ){
             highscore.push_back(score.getScore());
+            strhighscore = "New High Score:W ";
         }
         else if(score.getScore() > highscore[0]){
-             std::cout << "YOPOOOOOO " << highscore.size() << " score : " << score.getScore() << " " << highscore[0]<< std::endl;
-
-            std::cout << score.getScore() << " " << highscore[0] << std::endl;
             highscore.push_back(score.getScore());
             std::sort(highscore.begin(), highscore.end(), std::greater<int>());
+            strhighscore = "New High Score: ";
         }
         calls++;
     }
-
-    DrawString(int(ScreenWidth()*0.4), 25, "High Score: " + std::to_string(highscore[0]), olc::DARK_YELLOW );
-    DrawString(int(ScreenWidth()*0.4), 75, "Final Score: " + std::to_string(score.getScore()), olc::RED );
+    
+    DrawString(int(ScreenWidth()*0.4), 25, strhighscore.c_str() + std::to_string(highscore[0]), olc::DARK_YELLOW );
     if(GetKey(olc::Q).bPressed){
-        std::cout << "Q Pressed" << std::endl;
     	gameState = QUIT;
     }
 }
@@ -331,6 +328,7 @@ void game::reset()
     score.resetTime();
 
     calls = 0;
+    strhighscore = "High Score:";
     setStatePlay();
 }
 

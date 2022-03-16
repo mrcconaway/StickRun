@@ -83,5 +83,6 @@ public:
 	void save(std::ostream& out);
 	std::vector<int> highscore;
 	int calls = 0;
+	std::string strhighscore = "High Score:";
 
 };
