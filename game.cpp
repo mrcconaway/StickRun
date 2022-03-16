@@ -27,6 +27,7 @@ bool game::OnUserCreate()
     eBox[0].setPosY(y_pos);
     eBox[0].setPosX(x_pos);
     eBox[0].setStartOfScreen(ScreenWidth());
+    eBox[0].setStarYAxis(y_pos);
     eBox[0].setPointValue(2);
     eBox[0].setPixelColor(255,0,0, olc::nDefaultAlpha);
 
@@ -227,6 +228,7 @@ void game::playGame()
     // update enemy box positon
     for(int i = 0; i < eBox.size(); ++i){
         eBox[i].update();
+        eBox[i].updateY();
         if(   hitDetection(eBox[i]) ){ 
             setStateEnd(); // game over
         }
@@ -248,6 +250,8 @@ void game::playGame()
     //         eBox[1].setPosY(y_pos);
     //         eBox[1].setPosX(x_pos);
     //         eBox[1].setStartOfScreen(ScreenWidth());
+    //         eBox[0].setStarYAxis(y_pos);
+
     //         eBox[1].setPointValue(5);
     //         eBox[1].setPixelColor(0,0,255, olc::nDefaultAlpha);
     // }
@@ -259,13 +263,13 @@ void game::playGame()
         float x_pos = ScreenWidth();
         eBox[1].setModelSize(5);
         eBox[1].setVelX(-0.65);
+        eBox[1].setVelY(-0.5);
         eBox[1].setPosY(y_pos);
         eBox[1].setPosX(x_pos);
         eBox[1].setStartOfScreen(ScreenWidth());
+        eBox[1].setStarYAxis(ScreenHeight() * 0.75);
         eBox[1].setPointValue(5);
         eBox[1].setPixelColor(255,0,255, olc::nDefaultAlpha);
-            
-
     }
 
 

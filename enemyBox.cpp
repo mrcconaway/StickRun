@@ -7,6 +7,10 @@ void enemyBox::setVelX(float velocity){
         velx = velocity;
         
 }
+void enemyBox::setVelY(float velocity){
+        vely = velocity;
+        
+}
 void enemyBox::setPosY(float positionY){
         posy = positionY;
 }
@@ -17,7 +21,9 @@ void enemyBox::setPosX(float positionX){
 void enemyBox::setStartOfScreen(float start){
         startOfScreen = start;
 }
-
+void enemyBox::setStarYAxis(float start){
+        startYAxis = start;
+}
 
 int enemyBox::getModelSize(){
         return modelSize;
@@ -48,6 +54,19 @@ void enemyBox::update()
                 posx = startOfScreen;
 }
 
+void enemyBox::updateY()
+{
+        posy += vely;
+        if(posy <= startYAxis - 50){
+                vely *= -1;
+        }
+        else if(posy >= startYAxis + 50){
+              vely *= -1;  
+        }
+        else{
+                return;
+        }
+}
 
 void enemyBox::setPointValue(int val)
 {

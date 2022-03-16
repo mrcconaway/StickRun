@@ -11,9 +11,12 @@ public:
     enemyBox(){
         modelSize = 0;
         velx = 0.0f;
+        vely = 0.0f;
         posy = 0.0f;
         posx = 0.0f;
         startOfScreen = 0.0f;
+        startYAxis = 0.0f;
+        
         isDrawn = false;
         pointValue = 0;
         jumped = false;
@@ -24,9 +27,11 @@ public:
     // mutators
     void setModelSize(int size);
     void setVelX(float velocity);
+    void setVelY(float velocity);
     void setPosY(float positionY);
     void setPosX(float positionX);
     void setStartOfScreen(float start);
+    void setStarYAxis(float start);
     void setPointValue(int val);
     void setIsDraw(bool in);
     void setJumped(bool in);
@@ -51,15 +56,19 @@ public:
 
 public:
     void update();
+    void updateY();
+
 
 private:
     int modelSize; 
     float velx;
+    float vely;
     float posy;
     float posx;
 
     float endOfScreen = 0;
     float startOfScreen;
+    float startYAxis;
 
 private:
     bool isDrawn;
