@@ -239,17 +239,32 @@ void game::playGame()
 
     gameDraw();
 
-    if(score.getScore() >= 25 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
-            eBox.push_back(enemyBox());
-            float y_pos = ScreenHeight() * 0.75;
-            float x_pos = ScreenWidth();
-            eBox[1].setModelSize(3);
-            eBox[1].setVelX(-1.5);
-            eBox[1].setPosY(y_pos);
-            eBox[1].setPosX(x_pos);
-            eBox[1].setStartOfScreen(ScreenWidth());
-            eBox[1].setPointValue(5);
-            eBox[1].setPixelColor(0,0,255, olc::nDefaultAlpha);
+    // if(score.getScore() >= 25 && eBox.size() == 1){ // first threshhold for new enemy so it goes to index 1
+    //         eBox.push_back(enemyBox());
+    //         float y_pos = ScreenHeight() * 0.75;
+    //         float x_pos = ScreenWidth();
+    //         eBox[1].setModelSize(3);
+    //         eBox[1].setVelX(-1.5);
+    //         eBox[1].setPosY(y_pos);
+    //         eBox[1].setPosX(x_pos);
+    //         eBox[1].setStartOfScreen(ScreenWidth());
+    //         eBox[1].setPointValue(5);
+    //         eBox[1].setPixelColor(0,0,255, olc::nDefaultAlpha);
+    // }
+
+    // if(score.getScore() >= 50 && eBox.size() == 2){ // 2nd thresholf for new enemy so its goes to index 2
+    if(score.getScore() >= 1 && eBox.size() == 1){ // testing
+        eBox.push_back(enemyBox());
+        float y_pos = ScreenHeight() * 0.75 - 25;
+        float x_pos = ScreenWidth();
+        eBox[1].setModelSize(5);
+        eBox[1].setVelX(-0.65);
+        eBox[1].setPosY(y_pos);
+        eBox[1].setPosX(x_pos);
+        eBox[1].setStartOfScreen(ScreenWidth());
+        eBox[1].setPointValue(5);
+        eBox[1].setPixelColor(255,0,255, olc::nDefaultAlpha);
+            
 
     }
 
